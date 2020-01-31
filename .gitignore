@@ -1,4 +1,9 @@
 /Temp
+/Library/*
 /Library
+/Library/
+Library/
+Library/*
+Library
 /Packages
 .collabignore
