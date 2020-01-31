@@ -7,3 +7,4 @@ Library/*
 Library
 /Packages
 .collabignore
+/ProjectSettings/ProjectVersion.txt
