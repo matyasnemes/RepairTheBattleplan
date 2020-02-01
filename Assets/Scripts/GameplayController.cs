@@ -28,7 +28,7 @@ public class GameplayController : MonoBehaviour
     public int knight_4_health;
     public int knight_5_health;
 
-    // GUI handles
+    // GUI Slider handles
     public Slider playerHealthBar;
     public Slider playerManaBar;
     public Slider knight_1_healthBar;
@@ -36,6 +36,15 @@ public class GameplayController : MonoBehaviour
     public Slider knight_3_healthBar;
     public Slider knight_4_healthBar;
     public Slider knight_5_healthBar;
+
+    // GUI Action image handles
+    public Sprite actionGhostSprite;
+    public Sprite actionHealSprite;
+    public Sprite actionUnlockSprite;
+    public Sprite actionLevitateSprite;
+    public Sprite actionLightSprite;
+    public Sprite actionExtinguishSprite;
+    public Image  currentActionImage;
 
     // Initializing gameplay values
     void Start()
@@ -68,5 +77,15 @@ public class GameplayController : MonoBehaviour
         knight_3_healthBar.value = knight_3_health;
         knight_4_healthBar.value = knight_4_health;
         knight_5_healthBar.value = knight_5_health;
+
+        switch (currentAction)
+        {
+            case PlayerAction.GHOST_ACTION:         currentActionImage.sprite = actionGhostSprite; break;
+            case PlayerAction.HEAL_ACTION:          currentActionImage.sprite = actionHealSprite; break;
+            case PlayerAction.UNLOCK_ACTION:        currentActionImage.sprite = actionUnlockSprite; break;
+            case PlayerAction.LEVITATE_ACTION:      currentActionImage.sprite = actionLevitateSprite; break;
+            case PlayerAction.LIGHT_ACTION:         currentActionImage.sprite = actionLightSprite; break;
+            case PlayerAction.EXTINGUISH_ACTION:    currentActionImage.sprite = actionExtinguishSprite; break;
+        }
     }
 }
