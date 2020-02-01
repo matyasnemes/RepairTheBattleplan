@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomAction : BaseCollidable
+public class RoomAction : MonoBehaviour
 {
-    public Node node; 
+    public Node node;
+    BoxCollider2D m_collider;
 
     // Use this for initialization
     void Start () {
+        m_collider = GetComponent<BoxCollider2D>();
+        m_collider.isTrigger = true;
     }
 	
 	// Update is called once per frame
@@ -20,6 +23,7 @@ public class RoomAction : BaseCollidable
         if (fighter!=null)
         {
             ((Fighter)fighter).currentNode = node;
+            ((Fighter)fighter).currentNode.visited = true;
         }
     }
 

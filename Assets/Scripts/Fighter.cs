@@ -10,13 +10,16 @@ public class Fighter : MonoBehaviour
     public List<Node> route = new List<Node>();
     public Node currentNode;
     public Node targetNode;
+    BoxCollider2D m_collider;
 
     private Vector2? target;
 
     // Use this for initialization
     void Start()
     {
-
+        m_collider = GetComponent<BoxCollider2D>();
+        forward = new Vector3(1, 0, 0);
+        speed = 1;
     }
 
     // Update is called once per frame
@@ -25,17 +28,16 @@ public class Fighter : MonoBehaviour
 
         float step = speed * Time.deltaTime;
 
-        var position = transform.position;
         if (target != null)
         {
-            position = Vector2.MoveTowards(position, (Vector2)target, step);
-            if (Vector2.Distance((Vector2)target, position) < 0.0001)
+            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target, step);
+            if (Vector2.Distance((Vector2)target, transform.position) < 0.1)
                 target = null;
         }
 
-        if (target == null)
+        else
         {
-            position += forward;
+            transform.position += forward * step;
         }
 
     }
@@ -57,11 +59,38 @@ public class Fighter : MonoBehaviour
     {
         if (currentNode == null)
         {
-
+            //folyoson vagyunk, vissza kell vergodni a szobaig
         }
         else
         {
-            target = currentNode.chooseDoor(this,true);
+            //szobaban vagyubnk uj utkereses
+            target = currentNode.chooseDoor(this, true);
+        }
+    }
+
+    public void turn()
+    {
+        var direction = Random.Range(0, 1);
+
+        if (direction == 0) direction = -1;
+        else direction = 1;
+
+        var castDirection = Quaternion.Euler(0, 0, 90 * direction) * forward;
+
+        RaycastHit2D[] results = new RaycastHit2D[4];
+        int numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
+        if (numberOfCollisions == 0)
+        {
+            forward = castDirection;
+        }
+        else
+        {
+            castDirection *= -1;
+            numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
+            if (numberOfCollisions == 0)
+            {
+                forward = castDirection;
+            }
         }
     }
 }

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorAction : BaseCollidable
+public class DoorAction : MonoBehaviour
 {
+    BoxCollider2D m_collider;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start () {
+        m_collider = GetComponent<BoxCollider2D>();
+        m_collider.isTrigger = true;
+    }
 	
 	// Update is called once per frame
 	void Update () {
