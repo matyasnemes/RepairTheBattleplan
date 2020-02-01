@@ -13,6 +13,7 @@ public class GeneratorEntity : MonoBehaviour
     public GameObject[] SmallRooms;
     public GameObject HorCor;
     public GameObject VerCor;
+    public GameObject knight;
 
     public List<GameObject> RoomObjects;
     public List<GameObject> CorridorObjects;
@@ -28,6 +29,8 @@ public class GeneratorEntity : MonoBehaviour
         g.InitGraph(4, 30);
 
         CreateMap(g);
+
+        Instantiate(knight, new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
 
         g.Print();
 
@@ -105,6 +108,17 @@ public class GeneratorEntity : MonoBehaviour
 
         foreach (Transform child in roomobject.transform)
         {
+            foreach (Transform ch in child)
+            {
+                
+                if(ch.tag == "Room")
+                {
+                    ra = ch.GetComponent<RoomAction>();  
+                    
+                }
+
+            }
+
             if(child.tag == "Room")
             {
                 ra = child.GetComponent<RoomAction>();  
@@ -127,20 +141,20 @@ public class GeneratorEntity : MonoBehaviour
                 {
                     case 0:
                     
-                        ra.node.neighbours[ v.GetNeighbour(i).jnode ] = new doorData( new Vector2(Pos.x - 1.5f*SQUARE_SIDE, Pos.y), new Vector2(-1.0f, 0.0f));
+                        ra.node.neighbours[ v.GetNeighbour(i).jnode ] = new doorData( new Vector2(Pos.x - 2.0f*SQUARE_SIDE, Pos.y), new Vector2(-1.0f, 0.0f));
 
                     break;
                     case 1:
 
-                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 1.5f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 2.0f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
                     break;
                     case 2:
 
-                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x + 1.5f*SQUARE_SIDE, Pos.y ), new Vector2(1.0f, 0.0f));
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x + 2.0f*SQUARE_SIDE, Pos.y ), new Vector2(1.0f, 0.0f));
                     break;
                     case 3:
 
-                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 1.5f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 2.0f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
                     break;
 
                     default:
@@ -259,8 +273,7 @@ public class GeneratorEntity : MonoBehaviour
 
     public void PutCor(Vector3 Pos, bool hor)
     {
-        
-        Debug.Log("asd");
+
         if(hor)
         {
             var cor = Instantiate(HorCor, Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
