@@ -5,7 +5,7 @@ using UnityEngine;
 public class Node
 {
     public bool visited = false;
-    private Dictionary<Node, Vector2> neighbours = new Dictionary<Node, Vector2>();
+    public Dictionary<Node, Vector2> neighbours = new Dictionary<Node, Vector2>();
 
     public Vector2 chooseDoor(Fighter fighter, bool routeFailed)
     {
@@ -13,12 +13,14 @@ public class Node
         {
             if (!n.Key.visited)
             {
+                if (routeFailed && n.Key == fighter.targetNode)
+                    continue;
                 fighter.targetNode = n.Key;
                 return n.Value;
             }
         }
 
-        var route = Graph.findPathToNew(this);
+        var route = Graph.findPathToNew(this, fighter, routeFailed);
         var nextNode = route[0];
         fighter.targetNode = nextNode;
         route.RemoveAt(0);
