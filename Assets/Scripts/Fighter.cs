@@ -90,8 +90,16 @@ public class Fighter : MonoBehaviour
 
         var castDirection = Quaternion.Euler(0, 0, 90 * direction) * forward;
 
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 8;
+
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
+
+        layerMask = 1 << 0;
         RaycastHit2D[] results = new RaycastHit2D[4];
-        int numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
+        int numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f, layerMask);
         if (numberOfCollisions == 0)
         {
             forward = castDirection;
@@ -99,7 +107,7 @@ public class Fighter : MonoBehaviour
         else
         {
             castDirection *= -1;
-            numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
+            numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f, layerMask);
             if (numberOfCollisions == 0)
             {
                 forward = castDirection;
