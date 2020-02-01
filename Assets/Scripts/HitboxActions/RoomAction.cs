@@ -19,20 +19,22 @@ public class RoomAction : MonoBehaviour
 	}
     void OnTriggerEnter2D(Collider2D other)
     {
-        var fighter = other.GetComponent(typeof(Fighter));
+        var fighter = other.GetComponent<Fighter>();
         if (fighter!=null)
         {
-            ((Fighter)fighter).currentNode = node;
-            ((Fighter)fighter).currentNode.visited = true;
+            fighter.currentNode = node;
+            fighter.currentNode.visited = true;
+            //tesztre, kesobb ne a szoba dobja ki a fightereket
+            fighter.goOut();
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        var fighter = other.GetComponent(typeof(Fighter));
+        var fighter = other.GetComponent<Fighter>();
         if (fighter != null)
         {
-            ((Fighter)fighter).currentNode = null;
+            fighter.currentNode = null;
         }
     }
 }
