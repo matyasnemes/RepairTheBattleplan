@@ -57,10 +57,13 @@
   <ItemGroup>
      <Compile Include="Assets\GUI\GUIScripts\ActionButtonController.cs" />
      <Compile Include="Assets\GUI\GUIScripts\ExitButtonController.cs" />
+     <Compile Include="Assets\GUI\GUIScripts\GUIManager.cs" />
      <Compile Include="Assets\GUI\GUIScripts\PlayButtonController.cs" />
      <Compile Include="Assets\Scripts\DummyMover.cs" />
      <Compile Include="Assets\Scripts\Fighter.cs" />
+     <Compile Include="Assets\Scripts\GameActor.cs" />
      <Compile Include="Assets\Scripts\GameplayController.cs" />
+     <Compile Include="Assets\Scripts\GameplayOptions.cs" />
      <Compile Include="Assets\Scripts\HitboxActions\CollidableAction.cs" />
      <Compile Include="Assets\Scripts\HitboxActions\DoorAction.cs" />
      <Compile Include="Assets\Scripts\HitboxActions\RoomAction.cs" />

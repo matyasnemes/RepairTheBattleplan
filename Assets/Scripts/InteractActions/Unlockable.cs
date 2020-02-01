@@ -4,23 +4,30 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Unlockable : MonoBehaviour,
-                                  IPointerClickHandler
+                          IPointerClickHandler
 {
-    public GameplayController gameplayController;
-
-    // Mana cost of action
-    public const int unlockManaCost = 20;
+    // Unlocked status
+    public bool unlocked = false;
 
     // Click handler for action
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Checking if action should be performed
-        if (gameplayController.currentAction == GameplayController.PlayerAction.UNLOCK_ACTION)
-        {
-            // Spending mana from player mana pool
-            gameplayController.playerMana -= unlockManaCost;
+        int manaCost = GameplayController.getGameplayOptions().unlockManaCost;
+        GameActor player = GameplayController.getPlayer();
 
-            // Rest of the action...
+        // Checking if action should be performed
+        if (GameplayController.getCurrentAction() == GameplayController.PlayerAction.UNLOCK_ACTION)
+        {
+            // Checking available mana and unlock status
+            if (player.getMana() < manaCost || unlocked) return;
+
+            // Disabling collider
+            Collider attachedCollider = GetComponent<Collider>();
+            if (attachedCollider) attachedCollider.enabled = false;
+            unlocked = true;
+
+            // Spending mana from player mana pool
+            player.setMana(player.getMana() - manaCost);
         }
     }
 }

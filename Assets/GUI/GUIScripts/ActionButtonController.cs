@@ -11,7 +11,6 @@ public class ActionButtonController :   MonoBehaviour,
                                         IPointerClickHandler
 {
     public Image tooltipImage;
-    public GameplayController gameplayController;
     public GameplayController.PlayerAction playerAction;
 
     public void Start()
@@ -31,8 +30,7 @@ public class ActionButtonController :   MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Fuckyou more!");
-        gameplayController.currentAction = playerAction;
+        GameplayController.setCurrentAction(playerAction);
     }
 
 }
