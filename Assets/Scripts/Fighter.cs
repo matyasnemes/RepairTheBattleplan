@@ -14,12 +14,16 @@ public class Fighter : MonoBehaviour
 
     private Vector2? target;
 
+
+    System.Random rnd;
+
     // Use this for initialization
     void Start()
     {
         m_collider = GetComponent<BoxCollider2D>();
         forward = new Vector3(1, 0, 0);
         speed = 1;
+        rnd = new System.Random();
     }
 
     // Update is called once per frame
@@ -46,12 +50,16 @@ public class Fighter : MonoBehaviour
     {
         if (route.Any())
         {
-            target = currentNode.findDoor(route[0]);
+            var doorData = currentNode.findDoor(route[0]);
+            target = doorData.position;
+            forward = doorData.direction;
             route.RemoveAt(0);
         }
         else
         {
-            target = currentNode.chooseDoor(this, false);
+            var doorData = currentNode.chooseDoor(this, false);
+            target = doorData.position;
+            forward = doorData.direction;
         }
     }
 
@@ -64,21 +72,34 @@ public class Fighter : MonoBehaviour
         else
         {
             //szobaban vagyubnk uj utkereses
-            target = currentNode.chooseDoor(this, true);
+            var doorData  = currentNode.chooseDoor(this, true);
+            target = doorData.position;
+            forward = doorData.direction;
         }
     }
 
     public void turn()
     {
-        var direction = Random.Range(0, 1);
+        if (target != null)
+            return;
+
+        var direction = rnd.Next(0, 2);
 
         if (direction == 0) direction = -1;
         else direction = 1;
 
         var castDirection = Quaternion.Euler(0, 0, 90 * direction) * forward;
 
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 8;
+
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
+
+        layerMask = 1 << 0;
         RaycastHit2D[] results = new RaycastHit2D[4];
-        int numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
+        int numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f, layerMask);
         if (numberOfCollisions == 0)
         {
             forward = castDirection;
@@ -86,7 +107,7 @@ public class Fighter : MonoBehaviour
         else
         {
             castDirection *= -1;
-            numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
+            numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f, layerMask);
             if (numberOfCollisions == 0)
             {
                 forward = castDirection;

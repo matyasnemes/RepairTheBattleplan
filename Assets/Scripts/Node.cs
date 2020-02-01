@@ -2,23 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public struct doorData
 {
-    public bool visited = false;
-    public Dictionary<Node, Vector2> neighbours = new Dictionary<Node, Vector2>();
+    public Vector2 position;
+    public Vector2 direction;
 
-    public Vector2 chooseDoor(Fighter fighter, bool routeFailed)
+    public doorData(Vector2 pos, Vector3 dir)
     {
-        foreach (var n in neighbours)
+        position = pos;
+        direction = dir;
+    }
+}
+
+public class Node
+{ 
+    private System.Random rnd = new System.Random();
+    public bool visited = false;
+    public Dictionary<Node, doorData> neighbours = new Dictionary<Node, doorData>();
+
+    private Node randomChoose(List<Node> keyList, bool routeFailed, Fighter fighter)
+    {
+        if (keyList.Count == 0)
+            return null;
+
+        int r = rnd.Next(0, keyList.Count);
+        Node key = keyList[r];
+        if (!(routeFailed && key == fighter.targetNode))
         {
-            if (!n.Key.visited)
+            if (!key.visited)
             {
-                if (routeFailed && n.Key == fighter.targetNode)
-                    continue;
-                fighter.targetNode = n.Key;
-                return n.Value;
+                return key;
             }
         }
+        keyList.RemoveAt(r);
+
+        randomChoose(keyList, routeFailed, fighter);
+        return null;
+    }
+
+    public doorData chooseDoor(Fighter fighter, bool routeFailed)
+    {
+        List<Node> keyList = new List<Node>(neighbours.Keys);
+
+        Node key = randomChoose(keyList, routeFailed, fighter);
+        if (key != null)
+            return neighbours[key];
 
         var route = findPathToNew(this, fighter, routeFailed);
         var nextNode = route[0];
@@ -28,7 +56,7 @@ public class Node
         return neighbours[nextNode];
     }
 
-    public Vector2 findDoor(Node toRoom)
+    public doorData findDoor(Node toRoom)
     {
         return neighbours[toRoom];
     }
@@ -64,12 +92,14 @@ public class Node
         Node currentNode = traverseOrder[traverseOrder.Count - 1];
         path.Add(currentNode);
 
-        while (currentNode != from)
+        while (!currentNode.Equals(from))
         {
             findBaseNode(currentNode, traverseOrder, path);
             currentNode = path[path.Count - 1];
         }
-
+        path.Reverse();
+        //ahol vagyunk az nem kell az útvonal tervezéshez
+        path.RemoveAt(0);
         return path;
     }
 
@@ -82,6 +112,7 @@ public class Node
                 if (node == neighbour)
                 {
                     path.Add(node);
+                    return;
                 }
             }
         }
