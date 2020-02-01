@@ -18,7 +18,7 @@ public class DoorAction : MonoBehaviour
 	}
     void OnTriggerEnter2D(Collider2D other)
     {
-        var fighter = other.GetComponent(typeof(Fighter));
+        var fighter = other.GetComponent<Fighter>();
         if (fighter != null)
         {
             ((Fighter)fighter).doorClosed();

@@ -17,10 +17,10 @@ public class CollidableAction : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        var fighter = other.gameObject.GetComponent(typeof(Fighter));
+        var fighter = other.gameObject.GetComponent<Fighter>();
         if (fighter != null)
         {
-            ((Fighter)fighter).turn();
+            fighter.turn();
         }
     }
 }
