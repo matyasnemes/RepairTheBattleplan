@@ -12,7 +12,7 @@ public class Vertex
 
     public Node jnode;
 
-    public bool live;
+    private bool live;
 
     public int Y;
     public int X;
@@ -23,6 +23,17 @@ public class Vertex
         if(live) jnode = new Node();
         Y = y;
         X = x;
+    }
+
+    public void SetLive(bool l)
+    {
+        live = l;
+        if(live) jnode = new Node();
+    }
+
+    public bool GetLive()
+    {
+        return live;
     }
 
     public Vertex GetNeighbour(int n)
@@ -186,7 +197,7 @@ public class MapGenGraph
         for(int i = 0; i < shortestPath + 1; i++)
         {
 
-            vertices[StartY][StartX + i].live = true;
+            vertices[StartY][StartX + i].SetLive(true);
             vertices[StartY][StartX + i].Y = StartY;
             vertices[StartY][StartX + i].X = StartX + i;
 
@@ -218,26 +229,26 @@ public class MapGenGraph
                     int tcy = y;
 
                     //Ha foglalt nézd meg a szomszédokat
-                    if(vertices[y][x].live)
+                    if(vertices[y][x].GetLive())
                     {
-                        if(y+1 < vertices.Count && vertices[y+1][x].live)
+                        if(y+1 < vertices.Count && vertices[y+1][x].GetLive())
                         {
                             tcy = y+1;
                         }
                         
-                        else if(y-1 >= 0 && vertices[y-1][x].live)
+                        else if(y-1 >= 0 && vertices[y-1][x].GetLive())
                         {
                             tcy = y-1;
                         }
 
                         
-                        else if(x+1 < vertices[y].Count && vertices[y][x+1].live)
+                        else if(x+1 < vertices[y].Count && vertices[y][x+1].GetLive())
                         {
                             tcx = x+1;
                         }
 
                         
-                        else if(x-1 >= 0 && vertices[y][x-1].live)
+                        else if(x-1 >= 0 && vertices[y][x-1].GetLive())
                         {
                             tcx = x-1;
                         }
@@ -252,7 +263,7 @@ public class MapGenGraph
                     //Ha nem foglalt akkor nézd meg hogy van e kapcsolódó szomszéd
                     if(CheckForPossibleNeighbour(tcy, tcx))
                     {
-                        vertices[tcy][tcx].live=true;
+                        vertices[tcy][tcx].SetLive(true);
                         vertices[tcy][tcx].X= tcx;
                         vertices[tcy][tcx].Y= tcy;
                         break;
@@ -273,7 +284,7 @@ public class MapGenGraph
         {
             for(int j = 0; j < vertices[i].Count; j++)
             {
-                if(vertices[i][j].live) LiveVertices.Add(vertices[i][j]);
+                if(vertices[i][j].GetLive()) LiveVertices.Add(vertices[i][j]);
             }
         }
 
@@ -347,6 +358,16 @@ public class MapGenGraph
                 {
                     Vertex n = v.GetNeighbour(j);
 
+                    if(v.jnode == null)
+                    {
+                        Debug.Log("Blip");
+                    }
+                    
+                    if(n.jnode == null)
+                    {
+                        Debug.Log("Boip");
+                    }
+
                     v.jnode.neighbours.Add(n.jnode, new doorData(new Vector2(0.0f, 0.0f), new Vector2(0.0f, 0.0f)));
                 }
             }
@@ -363,7 +384,7 @@ public class MapGenGraph
     
         for(int i = 0; i < y; i++)
         {
-            if(vertices[i][x].live)
+            if(vertices[i][x].GetLive())
             {
                 return true;
             }
@@ -371,7 +392,7 @@ public class MapGenGraph
         
         for(int i = 0; i < x; i++)
         {
-            if(vertices[y][i].live)
+            if(vertices[y][i].GetLive())
             {
                 return true;
             }
@@ -379,7 +400,7 @@ public class MapGenGraph
         
         for(int i = y + 1; i < vertices.Count; i++)
         {
-            if(vertices[i][x].live)
+            if(vertices[i][x].GetLive())
             {
                 return true;
             }
@@ -387,7 +408,7 @@ public class MapGenGraph
 
         for(int i = x + 1; i < vertices[y].Count; i++)
         {
-            if(vertices[y][i].live)
+            if(vertices[y][i].GetLive())
             {
                 return true;
             }
@@ -539,7 +560,7 @@ public class MapGenGraph
 
                 for(int i = v.X - 1; i >= 0; i--)
                 {
-                    if(vertices[v.Y][i].live)
+                    if(vertices[v.Y][i].GetLive())
                     {
                         return vertices[v.Y][i];
                     }
@@ -553,7 +574,7 @@ public class MapGenGraph
             
                 for(int i = v.Y + 1; i < vertices.Count; i++)
                 {
-                    if(vertices[i][v.X].live)
+                    if(vertices[i][v.X].GetLive())
                     {
                         return vertices[i][v.X];
                     }
@@ -566,7 +587,7 @@ public class MapGenGraph
 
                 for(int i = v.X + 1; i < vertices[v.Y].Count; i++)
                 {
-                    if(vertices[v.Y][i].live)
+                    if(vertices[v.Y][i].GetLive())
                     {
                         return vertices[v.Y][i];
                     }
@@ -579,7 +600,7 @@ public class MapGenGraph
         
                 for(int i = v.Y - 1; i >= 0; i--)
                 {
-                    if(vertices[i][v.X].live)
+                    if(vertices[i][v.X].GetLive())
                     {
                         return vertices[i][v.X];
                     }
@@ -611,7 +632,7 @@ public class MapGenGraph
             maprep.Add(new List<char>());
             for(int j = 0; j < vertices[i].Count; j++)
             {
-                if(!vertices[i][j].live)
+                if(!vertices[i][j].GetLive())
                 {
                     maprep[i].Add(Space);
                 }
@@ -654,7 +675,7 @@ public class MapGenGraph
             for(int j = 0; j < vertices[i].Count; j++)
             {
                 Vertex tc = vertices[i][j];
-                if(tc.live)
+                if(tc.GetLive())
                 {   
                     //Balról jobbra haladok, elég a jobb és alsó szomszédokat nézni, mert a másik kettő már meg van nézve
                     if(tc.CheckNeighbour(1))
