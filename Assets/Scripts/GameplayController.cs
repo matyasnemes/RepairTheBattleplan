@@ -6,6 +6,17 @@ using UnityEngine.UI;
 
 public class GameplayController : MonoBehaviour
 {
+    // Enumeration of gamestate
+    public enum GameState { MENU_STATE, PLAY_STATE };
+
+    // Current gamestate
+    public GameState currentGameState;
+
+    // Menu elements
+    public InputField playerNameField;
+    public Button playButton;
+    public Button exitButton;
+
     // Predefined maximum gameplay values
     public const int player_max_health   = 100;
     public const int player_max_mana     = 100;
@@ -46,9 +57,16 @@ public class GameplayController : MonoBehaviour
     public Sprite actionExtinguishSprite;
     public Image  currentActionImage;
 
-    // Initializing gameplay values
+    // Initializing game
     void Start()
     {
+        // Initializing gamestate
+        currentGameState = GameState.MENU_STATE;
+
+        // Initializing menu
+        playButton.gameObject.SetActive(false);
+
+        // Initializing actor resources
         playerHealth    = player_max_health;
         playerMana      = player_max_mana;
         currentAction   = PlayerAction.HEAL_ACTION;
@@ -58,6 +76,7 @@ public class GameplayController : MonoBehaviour
         knight_4_health = knight_4_max_health;
         knight_5_health = knight_5_max_health;
 
+        // Initializing resource bar max values
         playerHealthBar.maxValue = player_max_health;
         playerManaBar.maxValue = player_max_mana;
         knight_1_healthBar.maxValue = knight_1_max_health;
@@ -70,6 +89,15 @@ public class GameplayController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(playerNameField.text.Length > 0)
+        {
+            playButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            playButton.gameObject.SetActive(false);
+        }
+
         playerHealthBar.value = playerHealth;
         playerManaBar.value = playerMana;
         knight_1_healthBar.value = knight_1_health;
