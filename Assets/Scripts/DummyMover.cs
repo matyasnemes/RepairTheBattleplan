@@ -21,7 +21,7 @@ public class DummyMover : MonoBehaviour {
         doorData Door5 = new doorData(new Vector2(4.14f, -0.126f), new Vector3(1,0,0));
         doorData Door6 = new doorData(new Vector2(3.77f, -0.58f), new Vector3(0,-1,0));
         doorData Door7 = new doorData(new Vector2(3.77f, -1.243f), new Vector3(0,1,0));
-        doorData Door8 = new doorData(new Vector2(4.875f, -0.135f), new Vector3(1,0,0));
+        doorData Door8 = new doorData(new Vector2(4.875f, -0.135f), new Vector3(-1,0,0));
 
         Node1.neighbours.Add(Node2, Door1);
 
@@ -61,12 +61,6 @@ public class DummyMover : MonoBehaviour {
         var room5 = GameObject.Find("Room5");
         act = room5.GetComponent<RoomAction>();
         act.node = Node5;
-
-        var fighter = GameObject.Find("Knight");
-        var f = fighter.GetComponent<Fighter>();
-        f.currentNode = Node1;
-
-        f.goOut();
     }
 	
 	// Update is called once per frame
