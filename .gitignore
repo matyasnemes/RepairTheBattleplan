@@ -1,10 +1,5 @@
 /Temp
-/Library/*
-/Library
-/Library/
-Library/
-Library/*
-Library
+*.log*
 /Packages
 .collabignore
 /ProjectSettings/ProjectVersion.txt
