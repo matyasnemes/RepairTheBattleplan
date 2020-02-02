@@ -52,7 +52,7 @@ public class Node
         var route = findPathToNew(this);
         var nextNode = route[0];
         route.RemoveAt(0);
-        Fighter.route = route;
+        FighterController.route = route;
         return neighbours[nextNode];
     }
 

@@ -28,7 +28,7 @@ public class RoomAction : MonoBehaviour
             {
                 fighter.currentNode = node;
                 fighter.currentNode.visited = true;
-                fighter.goOut();
+                FighterController.goOut();
             }
 
         }

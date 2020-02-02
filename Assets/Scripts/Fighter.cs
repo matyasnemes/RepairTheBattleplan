@@ -7,13 +7,11 @@ public class Fighter : MonoBehaviour
 {
     public float speed;
 
-    public List<Node> route = new List<Node>();
-
     public Node currentNode;
     public Vector2? target;
     public Vector3 forward;
 
-    private Vector2 doorDirection;
+    public Vector2 doorDirection;
     BoxCollider2D m_collider;
 
 
@@ -50,23 +48,6 @@ public class Fighter : MonoBehaviour
             transform.position += forward * step;
         }
 
-    }
-
-    public void goOut()
-    {
-        if (route.Any())
-        {
-            var doorData = currentNode.findDoor(route[0]);
-            target = doorData.position;
-            doorDirection = doorData.direction;
-            route.RemoveAt(0);
-        }
-        else
-        {
-            var doorData = currentNode.chooseDoor();
-            target = doorData.position;
-            doorDirection = doorData.direction;
-        }
     }
 
     public void turn()
