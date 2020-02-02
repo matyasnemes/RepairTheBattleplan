@@ -110,7 +110,6 @@ public class GeneratorEntity : MonoBehaviour
 
         while(waiting.Count != 0)
         {
-            Debug.Log(iter);
             iter++;
             Vertex v = waiting[0];
             visited.Add(v);
@@ -131,6 +130,9 @@ public class GeneratorEntity : MonoBehaviour
                     }
                 }
             }
+
+            
+            Debug.Log(iter);
 
             if(v == g.Start)
             {
