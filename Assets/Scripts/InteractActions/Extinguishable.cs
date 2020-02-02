@@ -6,26 +6,28 @@ using UnityEngine.EventSystems;
 public class Extinguishable : MonoBehaviour,
                               IPointerClickHandler
 {
-    public GameplayController gameplayController;
-
-    // Mana cost of action
-    public const int extinguishManaCost = 20;
+    // Extinguished status
+    public bool extinguished = false;
 
     // Click handler for action
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Checking if action should be performed
-        if (gameplayController.currentAction == GameplayController.PlayerAction.EXTINGUISH_ACTION)
-        {
-            // Checking available mana
-            if (gameplayController.playerMana < extinguishManaCost) return;
+        int manaCost = GameplayController.getGameplayOptions().extinguishManaCost;
+        GameActor player = GameplayController.getPlayer();
 
-            // Rest of the action...
+        // Checking if action should be performed
+        if (GameplayController.getCurrentAction() == GameplayController.PlayerAction.EXTINGUISH_ACTION)
+        {
+            // Checking available mana and extinguish status
+            if (player.getMana() < manaCost || extinguished) return;
+
+            // Disabling collider
             Collider attachedCollider = GetComponent<Collider>();
             if(attachedCollider) attachedCollider.enabled = false;
+            extinguished = true;
 
             // Spending mana from player mana pool
-            gameplayController.playerMana -= extinguishManaCost;
+            player.setMana(player.getMana() - manaCost);
         }
     }
 }
