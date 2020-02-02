@@ -132,8 +132,9 @@ GameObject:
   - component: {fileID: 66144933}
   - component: {fileID: 66144932}
   - component: {fileID: 66144931}
+  - component: {fileID: 66144934}
   m_Layer: 0
-  m_Name: Heal_0
+  m_Name: HealEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,6 +224,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66144934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66144930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef54b353c7c8514d8131c1869f042fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToLive: 0.6
 --- !u!1 &269405678
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,8 +248,9 @@ GameObject:
   - component: {fileID: 269405681}
   - component: {fileID: 269405680}
   - component: {fileID: 269405679}
+  - component: {fileID: 269405682}
   m_Layer: 0
-  m_Name: LevitateEffect_0
+  m_Name: LevitateEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,6 +340,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &269405682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269405678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef54b353c7c8514d8131c1869f042fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToLive: 0.6
 --- !u!1 &1082551698
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,8 +447,9 @@ GameObject:
   - component: {fileID: 1086765246}
   - component: {fileID: 1086765245}
   - component: {fileID: 1086765244}
+  - component: {fileID: 1086765247}
   m_Layer: 0
-  m_Name: LightEffect_0
+  m_Name: LightEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -510,3 +539,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1086765247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086765243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef54b353c7c8514d8131c1869f042fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToLive: 0.6
