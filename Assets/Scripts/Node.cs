@@ -28,6 +28,8 @@ public class Node
 
     public void setEnemies(List<enemy> enem)
     {
+        if (enem.Count == 0)
+            return;
         enemies = enem;
         wasEnemy = true;
         enemyCount = enemies.Count;

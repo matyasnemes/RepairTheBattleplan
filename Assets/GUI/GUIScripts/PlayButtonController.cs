@@ -15,7 +15,7 @@ public class PlayButtonController : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameplayController.setGameState(GameplayController.GameState.PLAY_STATE);
+        
 
         // Random.seed = ???
         Random.seed = playerName.text.GetHashCode();
@@ -31,5 +31,7 @@ public class PlayButtonController : MonoBehaviour,
         // Activate player
         GameplayController.getPlayer().GetComponent<SpriteRenderer>().enabled = true;
         GameplayController.getPlayer().GetComponent<PlayerControllable>().enabled = true;
+
+        GameplayController.setGameState(GameplayController.GameState.PLAY_STATE);
     }
 }
