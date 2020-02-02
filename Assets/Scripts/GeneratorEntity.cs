@@ -446,23 +446,23 @@ public class GeneratorEntity : MonoBehaviour
                     case 0:
                     
                         ra.node.neighbours[ v.GetNeighbour(i).jnode ] = new doorData( new Vector2(Pos.x - 2.0f*SQUARE_SIDE, Pos.y), new Vector2(-1.0f, 0.0f));
-                        if(Random.Range(0, 1) < 2) Instantiate(HorDoor, new Vector3(Pos.x - 2.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(HorDoor, new Vector3(Pos.x - 2.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
 
                     break;
                     case 1:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 2.0f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
-                        if(Random.Range(0, 1) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y - 2.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y - 2.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
                     case 2:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x + 2.0f*SQUARE_SIDE, Pos.y ), new Vector2(1.0f, 0.0f));
-                        if(Random.Range(0, 1) < 2) Instantiate(HorDoor, new Vector3(Pos.x + 2.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(HorDoor, new Vector3(Pos.x + 2.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
                     case 3:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 2.0f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
-                        if(Random.Range(0, 1) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y + 2.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y + 2.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
 
                     default:
