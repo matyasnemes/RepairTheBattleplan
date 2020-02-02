@@ -41,7 +41,7 @@ public class GameActor : MonoBehaviour
 
     public void setMana(float value)
     {
-        mana = value;
+        mana = Math.Min(0,value);
     }
 
     public bool damagable()

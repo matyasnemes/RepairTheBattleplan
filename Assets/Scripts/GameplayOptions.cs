@@ -59,10 +59,4 @@ public class GameplayOptions
     public Sprite lightSprite;
     public Sprite extinguishSprite;
     public Sprite skullSprite;
-
-    // Frame sprites
-    [Header("NOT USED Frame sprites")]
-    public Sprite actorFrameSprite;
-    public Sprite actionFrameSprite;
-    public Sprite currentActionFrameSprite;
 }
