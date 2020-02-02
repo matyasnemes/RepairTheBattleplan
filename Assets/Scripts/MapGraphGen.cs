@@ -160,16 +160,14 @@ public class MapGenGraph
     public Vertex Start;
     public Vertex Finish;
 
-    public void InitGraph(int shortestPath, int Nodes)
+    public bool InitGraph(int shortestPath, int Nodes)
     {
-        
-        System.Random rnd = new System.Random();
 
         int h = shortestPath + 2;
         int w = shortestPath + 2;
         while(h*w < Nodes*ratio)
         {
-            int coin  = rnd.Next(0, 2);
+            int coin  = UnityEngine.Random.Range(0, 1);
 
             if(coin == 1)
             {
@@ -222,8 +220,8 @@ public class MapGenGraph
             {
                 for(int j = 0; j < 10; j++)
                 {
-                    int y = rnd.Next(0, vertices.Count);
-                    int x = rnd.Next(0, vertices[y].Count);
+                    int y = UnityEngine.Random.Range(0, vertices.Count-1);
+                    int x = UnityEngine.Random.Range(0, vertices[y].Count-1);
 
                     int tcx = x;
                     int tcy = y;
@@ -324,7 +322,7 @@ public class MapGenGraph
                 continue;
             }
 
-            int newnbrs = rnd.Next(0, possibleNeigbours + 1);
+            int newnbrs = UnityEngine.Random.Range(0, possibleNeigbours);
 
             //Ha nincs él de lehetne viszont 0 élt sorsoltunk, rakjunk be egyet
             if(v.GetDegree() == 0 && newnbrs == 0) newnbrs++;
@@ -334,7 +332,7 @@ public class MapGenGraph
             for(int j = 0; j < newnbrs; j++)
             {
                 //Index a szomszéd pozíciós listában
-                int nindex = rnd.Next(0, nb.Count);
+                int nindex = UnityEngine.Random.Range(0, nb.Count-1);
                 
                 //Hozzáadjuk a megfelelő irányban elhelyezkedő szomszédot a megfelelő irányú szomszéd slotban
 
@@ -372,6 +370,117 @@ public class MapGenGraph
                 }
             }
         }
+
+                    /*
+            *
+            *
+            * Innen kezdve randomizálom a kezdő és végpontot
+            *
+            */
+
+            List<Vertex> degreeonevertices = new List<Vertex>();
+            List<Vertex> randomlist = new List<Vertex>();
+
+            for(int i = 0; i < LiveVertices.Count; i++)
+            {
+                if(LiveVertices[i].GetDegree() == 1 )
+                {
+                    degreeonevertices.Add(LiveVertices[i]);
+                    randomlist.Add(LiveVertices[i]);
+                }
+            }
+
+           while(randomlist.Count != 0)
+           {
+                int index = UnityEngine.Random.Range(0, randomlist.Count-1);
+
+                List<Vertex> Traversal = new List<Vertex>();
+                List<Vertex> Visited = new List<Vertex>();
+                List<Vertex> Waiting = new List<Vertex>();
+                
+                Vertex root = randomlist[index]; 
+
+
+                Waiting.Add(root);
+                randomlist.RemoveAt(index);
+
+
+
+                while(Waiting.Count != 0)
+                {
+                    Vertex v = Waiting[0];
+                    Waiting.RemoveAt(0);
+
+                    for(int i = 0; i < 4; i++)
+                    {
+                        if(v.CheckNeighbour(i) && !Visited.Contains(v.GetNeighbour(i)))
+                        {
+                            Waiting.Add(v.GetNeighbour(i));
+                        }                   
+                    }
+
+                    Visited.Add(v);
+                    Traversal.Add(v);
+                }
+
+                bool found = false;
+                bool graphbreak = false;
+
+                for(int i = degreeonevertices.Count -1; i >=0; i--)
+                {
+                    int ind = Traversal.IndexOf(degreeonevertices[i]);
+
+                    int runind = ind;
+
+                    int route = 0;
+
+                    while(runind != 0)
+                    {
+                        bool ggraph = false;
+                        //Console.WriteLine("Teve");
+                        for(int j = 0; j < runind; j++)
+                        {
+                            if(Traversal[j] == Traversal[runind].GetNeighbour(0) || Traversal[j] == Traversal[runind].GetNeighbour(1) || Traversal[j] == Traversal[runind].GetNeighbour(2) ||  Traversal[j] == Traversal[runind].GetNeighbour(3))
+                            {
+                                runind = j;
+                                route++;
+                                ggraph = true;
+                                break; 
+                            }
+
+
+                        }
+
+                        if(!ggraph)
+                        {
+                            graphbreak = true;
+                            break;
+                        }
+                    }
+
+                    if(graphbreak)
+                    {
+                        break;
+                    }
+
+                    if(route >= shortestPath)
+                    {
+                        found = true;
+
+                        Start = root;
+                        Finish = degreeonevertices[i];
+                        break;
+                    }
+                }
+
+                if(found)
+                {
+                    return true;
+                }
+
+           }
+
+           return false;
 
 
     }
