@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Moveable : MonoBehaviour,
-                        IPointerClickHandler
+public class Moveable : MonoBehaviour
 {
     // Move status
     public bool moving = false;
@@ -19,8 +18,10 @@ public class Moveable : MonoBehaviour,
     private double moveTimer = 0.0f;
 
     // Click handler for action
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnMouseDown()
     {
+        Debug.Log("Move");
+
         int manaCost = GameplayController.getGameplayOptions().levitateManaCost;
         GameActor player = GameplayController.getPlayer();
 
@@ -28,7 +29,7 @@ public class Moveable : MonoBehaviour,
         if (GameplayController.getCurrentAction() == GameplayController.PlayerAction.LEVITATE_ACTION)
         {
             // Checking available mana and move status
-            if (player.getMana() < manaCost || moving) return;
+            if (player.getMana() < manaCost || moving || player.getHealth() < 0.1f) return;
 
             // Initiating move
             moveRemaining = GameplayController.getGameplayOptions().levitateStepCount;

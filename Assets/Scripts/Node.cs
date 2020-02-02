@@ -21,26 +21,34 @@ public class Node
     public Dictionary<Node, doorData> neighbours = new Dictionary<Node, doorData>();
     public int fighterCount = 0;
 
-    public int enemyCount = 0;
     public bool wasEnemy = false;
 
-    private List<Enemy> enemies;
-    private List<Enemy> idleEnemies;
+    public int enemyCount = 0;
+    private List<enemy> enemies;
 
-    public void setEnemies(List<Enemy> enem)
+    public void setEnemies(List<enemy> enem)
     {
         enemies = enem;
-        idleEnemies = enem;
         wasEnemy = true;
-        enemyCount = enem.Count;
+        enemyCount = enemies.Count;
     }
+
+    public void killed(enemy e)
+    {
+        if (enemies.Contains(e))
+        {
+            enemies.Remove(e);
+            enemyCount--;
+        }
+    }
+
     public void fight(Fighter f)
     {
-        int i = rnd.Next(0, idleEnemies.Count);
-        var e = idleEnemies[i];
-        idleEnemies.RemoveAt(i);
-        f.fight(e.transform.position + new Vector3(0.32f, 0.0f));
-        e.fight(f.transform.position- new Vector3(0.32f, 0.0f));
+        int i = rnd.Next(0, enemies.Count);
+        var e = enemies[i];
+        //idleEnemies.RemoveAt(i);
+        f.fight(e);
+        e.fight(f);
     }
 
     private Node randomChoose(List<Node> keyList)
