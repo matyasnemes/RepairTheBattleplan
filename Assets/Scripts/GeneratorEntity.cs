@@ -11,9 +11,12 @@ public class GeneratorEntity : MonoBehaviour
     int corridorsize = 1;
 
     public GameObject[] SmallRooms;
+    public GameObject[] NormalRooms;
     public GameObject HorCor;
     public GameObject VerCor;
     public GameObject knight;
+    public GameObject StartTile;
+    public GameObject FinishTile;
 
     public List<GameObject> RoomObjects;
     public List<GameObject> CorridorObjects;
@@ -48,8 +51,7 @@ public class GeneratorEntity : MonoBehaviour
         }
         g.Start.jnode.fighterCount = 5;
         
-        //VALAKI HIVJON EGY FIGHTER INDITOT
-        //Fighter.goOut();
+        FighterController.goOut();
 
         g.Print();
 

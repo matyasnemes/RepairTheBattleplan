@@ -8,8 +8,8 @@ public class GameActor : MonoBehaviour
     private float regenerationTimer;
     private float maxHealth;
     private float maxMana;
-    private float health;
-    private float mana;
+    public float health;
+    public float mana;
 
     public void setMaxHealth(float value)
     {
@@ -61,8 +61,8 @@ public class GameActor : MonoBehaviour
             regenerationTimer = 0.0f;
 
             // Regenerating resources
-            health = Math.Min(health + 1, maxHealth);
-            mana   = Math.Min(mana + 1, maxMana);
+            health = Math.Min(health + GameplayController.getGameplayOptions().healthRegenerationValue, maxHealth);
+            mana   = Math.Min(mana + GameplayController.getGameplayOptions().manaRegenerationValue, maxMana);
         }
     }
 }

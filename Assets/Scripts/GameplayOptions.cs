@@ -10,6 +10,7 @@ public class GameplayOptions
     [Header("Durations & periods")]
     public float regenerationPeriod;
     public float ghostEffectDuration;
+    public float levitateStepPeriod;
 
     // Maximum health values
     [Header("Maximum health values")]
@@ -33,6 +34,13 @@ public class GameplayOptions
     public int lightManaCost = 10;
     public int extinguishManaCost = 10;
 
+    // Action specific values
+    [Header("Action specific values")]
+    public int healValue = 20;
+    public int healthRegenerationValue = 1;
+    public int manaRegenerationValue = 1;
+    public int levitateStepCount = 50;
+
     // Icon sprites
     [Header("Icon sprites")]
     public Sprite ghostSprite;
@@ -43,7 +51,7 @@ public class GameplayOptions
     public Sprite extinguishSprite;
 
     // Frame sprites
-    [Header("Frame sprites")]
+    [Header("NOT USED Frame sprites")]
     public Sprite actorFrameSprite;
     public Sprite actionFrameSprite;
     public Sprite currentActionFrameSprite;
