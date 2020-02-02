@@ -80,7 +80,7 @@ public class GameActor : MonoBehaviour
 
     void Start()
     {
-        // Getting animator component
+        // Getting animator component 
         animator = GetComponent<Animator>();
     }
 
