@@ -7,9 +7,9 @@ public class GeneratorEntity : MonoBehaviour
 
     float SQUARE_SIDE = 0.32f;
     int smallroomsize = 5;
-    int corridors = 5;
+    int corridors = 7;
     int corridorsize = 1;
-    int biggestroomhalfsize = 3;
+    int biggestroomhalfsize = 4;
     int smallroomenemy = 3;
     int normalroomenemy = 5;
 
@@ -17,12 +17,17 @@ public class GeneratorEntity : MonoBehaviour
 
     public GameObject[] SmallRooms;
     public GameObject[] NormalRooms;
+    public GameObject[] ElongatedSpecialRooms;
     public GameObject HorCor;
     public GameObject VerCor;
     public GameObject knight;
     public GameObject StartTile;
     public GameObject FinishTile;
     public GameObject GoblinPrefab;
+    public GameObject c1100;
+    public GameObject c0110;
+    public GameObject c0011;
+    public GameObject c1001;
 
     public RuntimeAnimatorController knight1Animator;
     public RuntimeAnimatorController knight2Animator;
@@ -49,7 +54,7 @@ public class GeneratorEntity : MonoBehaviour
         if(GenerateAtStart)
         {
             System.Random rnd = new System.Random();
-            Random.seed = rnd.Next(0, 20000);
+            Random.seed = /*rnd.Next(0, 20000);*/ 12;
             GenerateMap(4, 30);
         }
 
@@ -145,36 +150,199 @@ public class GeneratorEntity : MonoBehaviour
 
             if(v == g.Start)
             {
-                PutNormalRoom(new Vector3( (v.X - g.Start.X)*10*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*10*SQUARE_SIDE), v, false);
-                var roomobject = Instantiate(StartTile, new Vector3( (v.X - g.Start.X)*10*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*10*SQUARE_SIDE), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                PutNormalRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v, false);
+                var roomobject = Instantiate(StartTile, new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
             }
             else if(v == g.Finish)
             {
 
-                PutNormalRoom(new Vector3( (v.X - g.Start.X)*10*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*10*SQUARE_SIDE), v, false);
-                var roomobject = Instantiate(FinishTile, new Vector3( (v.X - g.Start.X)*10*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*10*SQUARE_SIDE), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                PutNormalRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v, false);
+                var roomobject = Instantiate(FinishTile, new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
             }
            else
             {
 
-                int sorn = Random.Range(0, 100);
-
-
-                if(sorn > 20)
+                if(v.CheckNeighbour(0) && v.CheckNeighbour(2) && !v.CheckNeighbour(1) && !v.CheckNeighbour(3))
                 {
-                    //Azért van csere, mert koordináta váltás
-                    PutSmallRoom(new Vector3( (v.X - g.Start.X)*10*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*10*SQUARE_SIDE), v);
 
+                    PutSpecRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE + SQUARE_SIDE/2, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
                 }
                 else
                 {
-                    PutNormalRoom(new Vector3( (v.X - g.Start.X)*10*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*10*SQUARE_SIDE), v);
+                    int sorn = Random.Range(0, 100);
+
+
+                    if(sorn > 20)
+                    {
+                        //Azért van csere, mert koordináta váltás
+                        PutSmallRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
+
+                    }
+                    else
+                    {
+                        PutNormalRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
+                    }
+                }
+            }
+        }
+    }
+
+    public void PutSpecRoom(Vector3 Pos, Vertex v)
+    {
+        
+        int vmakeupcorridors = biggestroomhalfsize - 3;
+        int hmakeupcorridors = biggestroomhalfsize - 4;
+
+        string s = "";
+
+        for(int i = 3; i >= 0; i--)
+        {
+            if(v.CheckNeighbour(i))
+            {
+                s += '1';
+            }
+            else
+            {
+                s += '0';
+            }
+
+        }
+
+
+
+        int index = System.Convert.ToInt32(s,2);
+
+        var roomobject = Instantiate(ElongatedSpecialRooms[ Random.Range(0, ElongatedSpecialRooms.Length) ], Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+
+        RoomAction ra = null;
+
+        Transform roomchild = null;
+
+        foreach (Transform child in roomobject.transform)
+        {
+            foreach (Transform ch in child)
+            {
+                
+                if(ch.tag == "Room")
+                {
+                    roomchild = ch; 
+                    
                 }
 
             }
 
-            
+            if(child.tag == "Room")
+            {
+                roomchild = child; 
+                
+            }
         }
+
+        if(roomchild == null)
+        {
+            throw new System.ArgumentException("Room has no room tag child");
+        }
+
+
+        
+        ra = roomchild.GetComponent<RoomAction>(); 
+
+        
+        if(ra == null)
+        {
+            throw new System.ArgumentException("Room has no room action component");
+        }
+
+        ra.node = v.jnode;
+
+        for(int i = 0; i < 4; i++)
+        {
+            if(v.CheckNeighbour(i))
+            {
+                switch(i)
+                {
+                    case 0:
+                    
+                        ra.node.neighbours[ v.GetNeighbour(i).jnode ] = new doorData( new Vector2(Pos.x - 4.0f*SQUARE_SIDE, Pos.y), new Vector2(-1.0f, 0.0f));
+
+                    break;
+                    case 1:
+
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 3.0f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
+                    break;
+                    case 2:
+
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x + 4.0f*SQUARE_SIDE, Pos.y ), new Vector2(1.0f, 0.0f));
+                    break;
+                    case 3:
+
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 3.0f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
+                    break;
+
+                    default:
+                    break;
+                }
+            }
+        }
+
+        
+
+        RoomObjects.Add(roomobject);
+
+        /*
+        *
+        *  Hiányzó folyosók lepakolása
+        *
+        */
+
+        for(int i = 0; i < 4; i++)
+        {
+            if(v.CheckNeighbour(i))
+            {
+                 switch(i)
+                {
+                    case 0:
+
+                        for(int j = 0; j < hmakeupcorridors + 1; j++)
+                        {
+                            CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x - (3.0f + j + 1)*SQUARE_SIDE -SQUARE_SIDE/2, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
+                        }
+
+                    break;
+                    case 1:
+
+                        
+                        for(int j = 0; j < vmakeupcorridors; j++)
+                        {
+                            CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x -SQUARE_SIDE/2, Pos.y - (3.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
+                        }
+                    break;
+                    case 2:
+
+                        for(int j = 0; j < hmakeupcorridors; j++)
+                        {
+                            CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x + (4.0f + j + 1)*SQUARE_SIDE -SQUARE_SIDE/2, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
+                        }
+                    break;
+                    case 3:
+
+                        for(int j = 0; j < vmakeupcorridors; j++)
+                        {
+                            CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y + (3.0f + j + 1)*SQUARE_SIDE -SQUARE_SIDE/2, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
+                        }
+                    break;
+
+                    default:
+                    break;
+                }
+
+            }
+        }
+
     }
 
     public void PutSmallRoom(Vector3 Pos, Vertex v, bool enemy = true)
@@ -486,7 +654,7 @@ public class GeneratorEntity : MonoBehaviour
 
                         for(int j = 0; j < makeupcorridors; j++)
                         {
-                            CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x - (2.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x - (3.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
                             CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
                         }
 
@@ -496,7 +664,7 @@ public class GeneratorEntity : MonoBehaviour
                         
                         for(int j = 0; j < makeupcorridors; j++)
                         {
-                            CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y - (2.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y - (3.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
                             CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
                         }
                     break;
@@ -504,7 +672,7 @@ public class GeneratorEntity : MonoBehaviour
 
                         for(int j = 0; j < makeupcorridors; j++)
                         {
-                            CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x + (2.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x + (3.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
                             CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
                         }
                     break;
@@ -512,7 +680,7 @@ public class GeneratorEntity : MonoBehaviour
 
                         for(int j = 0; j < makeupcorridors; j++)
                         {
-                            CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y + (2.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y + (3.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
                             CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
                         }
                     break;
@@ -579,11 +747,11 @@ public class GeneratorEntity : MonoBehaviour
     public void PutCorBtwNeighBours(Vertex v, Vertex n, int d)
     {
 
-        float VcoordY = -1*(v.Y - g.Start.Y)*10*SQUARE_SIDE;
-        float VcoordX = (v.X - g.Start.X)*10*SQUARE_SIDE;
+        float VcoordY = -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE;
+        float VcoordX = (v.X - g.Start.X)*2*corridors*SQUARE_SIDE;
 
-        float NcoordY = -1*(n.Y - g.Start.Y)*10*SQUARE_SIDE;
-        float NcoordX = (n.X - g.Start.X)*10*SQUARE_SIDE;
+        float NcoordY = -1*(n.Y - g.Start.Y)*2*corridors*SQUARE_SIDE;
+        float NcoordX = (n.X - g.Start.X)*2*corridors*SQUARE_SIDE;
 
         int distanceinCoordinates = 0;
 
@@ -599,7 +767,7 @@ public class GeneratorEntity : MonoBehaviour
         }
 
         
-        distanceinCoordinates = (int)System.Math.Round(distance/SQUARE_SIDE) - 6;
+        distanceinCoordinates = (int)System.Math.Round(distance/SQUARE_SIDE) - 8;
 
 
         switch (d)
@@ -621,6 +789,12 @@ public class GeneratorEntity : MonoBehaviour
             default:
             break;
         }
+
+        /*
+        *
+        *Okos folyosó generálás
+        *
+        */
 
         if(d == 0 || d == 2)
         {

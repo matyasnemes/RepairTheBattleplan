@@ -26,6 +26,9 @@ public class Extinguishable : MonoBehaviour,
             if(attachedCollider) attachedCollider.enabled = false;
             extinguished = true;
 
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer) spriteRenderer.enabled = false;
+
             // Spending mana from player mana pool
             player.setMana(player.getMana() - manaCost);
         }
