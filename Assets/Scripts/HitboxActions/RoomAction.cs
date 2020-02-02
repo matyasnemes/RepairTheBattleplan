@@ -6,6 +6,7 @@ public class RoomAction : MonoBehaviour
 {
     public Node node;
     BoxCollider2D m_collider;
+    public int fighterCount;
 
     // Use this for initialization
     void Start () {
@@ -22,19 +23,25 @@ public class RoomAction : MonoBehaviour
         var fighter = other.GetComponent<Fighter>();
         if (fighter!=null)
         {
-            fighter.currentNode = node;
-            fighter.currentNode.visited = true;
-            //tesztre, kesobb ne a szoba dobja ki a fightereket
-            fighter.goOut();
+            node.fighterCount++;
+            if (node.enemyCount == 0 && node.fighterCount == 5)
+            {
+                Fighter.currentNode = node;
+                Fighter.currentNode.visited = true;
+                Fighter.goOut();
+            }
+
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         var fighter = other.GetComponent<Fighter>();
-        if (fighter != null)
+        node.fighterCount--;
+        if (fighter != null && node.fighterCount==0)
         {
-            fighter.currentNode = null;
+            Fighter.currentNode = null;
         }
+
     }
 }
