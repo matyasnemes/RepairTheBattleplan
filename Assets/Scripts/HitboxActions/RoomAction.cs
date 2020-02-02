@@ -26,9 +26,9 @@ public class RoomAction : MonoBehaviour
             node.fighterCount++;
             if (node.enemyCount == 0 && node.fighterCount == 5)
             {
-                Fighter.currentNode = node;
-                Fighter.currentNode.visited = true;
-                Fighter.goOut();
+                fighter.currentNode = node;
+                fighter.currentNode.visited = true;
+                fighter.goOut();
             }
 
         }
@@ -40,7 +40,7 @@ public class RoomAction : MonoBehaviour
         node.fighterCount--;
         if (fighter != null && node.fighterCount==0)
         {
-            Fighter.currentNode = null;
+            fighter.currentNode = null;
         }
 
     }

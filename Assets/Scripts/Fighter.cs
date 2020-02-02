@@ -7,13 +7,13 @@ public class Fighter : MonoBehaviour
 {
     public float speed;
 
+    public List<Node> route = new List<Node>();
 
-    static public List<Node> route = new List<Node>();
-    static public Node currentNode;
-    static public Vector2? target;
+    public Node currentNode;
+    public Vector2? target;
     public Vector3 forward;
 
-    private static Vector2 doorDirection;
+    private Vector2 doorDirection;
     BoxCollider2D m_collider;
 
 
@@ -52,7 +52,7 @@ public class Fighter : MonoBehaviour
 
     }
 
-    public static void goOut()
+    public void goOut()
     {
         if (route.Any())
         {

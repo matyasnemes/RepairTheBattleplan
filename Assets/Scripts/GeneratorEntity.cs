@@ -43,11 +43,13 @@ public class GeneratorEntity : MonoBehaviour
         {
             k.GetComponent<SpriteRenderer>().sprite = sprites[i];
             f = k.GetComponent<Fighter>();
+            f.currentNode = g.Start.jnode;
             i++;
         }
-        Fighter.currentNode = g.Start.jnode;
         g.Start.jnode.fighterCount = 5;
-        Fighter.goOut();
+        
+        //VALAKI HIVJON EGY FIGHTER INDITOT
+        //Fighter.goOut();
 
         g.Print();
 
