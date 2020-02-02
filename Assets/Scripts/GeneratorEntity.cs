@@ -341,15 +341,22 @@ public class GeneratorEntity : MonoBehaviour
             posspos.Add(new Vector3(1.0f, 1.0f, 0.0f));
             posspos.Add(new Vector3(-1.0f, -1.0f, 0.0f));
 
+    
+            List<Enemy> elist = new List<Enemy>();
+
             for(int i = 0; i < enemynum; i++)
             {
-                int eind = Random.Range(0, posspos.Count -1);
+                int eind = Random.Range(0, posspos.Count-1);
 
-                Instantiate(GoblinPrefab, Pos +posspos[eind]*SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+
+                elist.Add(Instantiate(GoblinPrefab, Pos + posspos[eind]*SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)).GetComponent<Enemy>());
+
 
                 posspos.RemoveAt(eind);
 
             }
+
+            v.jnode.setEnemies(elist);
         }
 
     }
