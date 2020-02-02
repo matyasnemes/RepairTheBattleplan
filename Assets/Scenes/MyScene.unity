@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbdfc47dc8fb2043b99eeffbf155e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GenerateAtStart: 1
   SmallRooms:
   - {fileID: 8227077524167162247, guid: 5029828ecf2d6f745bd4d4ab147c0059, type: 3}
   - {fileID: 6824111401615538165, guid: 8c6fdb043f5ec5b4494021a38a51a2c7, type: 3}
