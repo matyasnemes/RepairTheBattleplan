@@ -18,6 +18,10 @@ public class GeneratorEntity : MonoBehaviour
     public GameObject[] SmallRooms;
     public GameObject[] NormalRooms;
     public GameObject[] ElongatedSpecialRooms;
+    public GameObject[] VertSpecialRooms;
+    public GameObject[] CrossSpecialRooms;
+    public GameObject VerDoor;
+    public GameObject HorDoor;
     public GameObject HorCor;
     public GameObject VerCor;
     public GameObject knight;
@@ -54,8 +58,8 @@ public class GeneratorEntity : MonoBehaviour
         if(GenerateAtStart)
         {
             System.Random rnd = new System.Random();
-            Random.seed = /*rnd.Next(0, 20000);*/ 12;
-            GenerateMap(4, 30);
+            Random.seed = rnd.Next(0, 20000);;
+            GenerateMap(4, 50);
         }
 
 
@@ -161,29 +165,50 @@ public class GeneratorEntity : MonoBehaviour
             }
            else
             {
+                int sorn = Random.Range(0,  100);
 
-                if(v.CheckNeighbour(0) && v.CheckNeighbour(2) && !v.CheckNeighbour(1) && !v.CheckNeighbour(3))
+
+                if(sorn > 20)
                 {
 
-                    PutSpecRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE + SQUARE_SIDE/2, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
-                }
-                else
-                {
-                    int sorn = Random.Range(0, 100);
+                    bool putspec = false;
+
+                    if(v.CheckNeighbour(0) && v.CheckNeighbour(2) && !v.CheckNeighbour(1) && !v.CheckNeighbour(3))
+                    {
+                        if(Random.Range(0, 1) == 0)
+                        {
+                            PutSpecRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE + SQUARE_SIDE/2, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
+                            putspec = true;
+                        }
+                    }
+
+                    if(!v.CheckNeighbour(0) && !v.CheckNeighbour(2) && v.CheckNeighbour(1) && v.CheckNeighbour(3))
+                    {
+                        PutNormalRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v, false, true, false);
+                        putspec = true;
+                    }
+
+                    if(v.CheckNeighbour(0) && v.CheckNeighbour(2) && v.CheckNeighbour(1) && v.CheckNeighbour(3))
+                    {
+                        PutNormalRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v, false, true, true);
+                        putspec = true;
+                    
+                    }
 
 
-                    if(sorn > 20)
+
+                    if(!putspec)
                     {
                         //Azért van csere, mert koordináta váltás
                         PutSmallRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
+                    }
 
-                    }
-                    else
-                    {
-                        PutNormalRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
-                    }
                 }
-            }
+                else
+                {
+                    PutNormalRoom(new Vector3( (v.X - g.Start.X)*2*corridors*SQUARE_SIDE, -1*(v.Y - g.Start.Y)*2*corridors*SQUARE_SIDE), v);
+                }
+        }
         }
     }
 
@@ -421,19 +446,23 @@ public class GeneratorEntity : MonoBehaviour
                     case 0:
                     
                         ra.node.neighbours[ v.GetNeighbour(i).jnode ] = new doorData( new Vector2(Pos.x - 2.0f*SQUARE_SIDE, Pos.y), new Vector2(-1.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(HorDoor, new Vector3(Pos.x - 2.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
 
                     break;
                     case 1:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 2.0f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y - 2.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
                     case 2:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x + 2.0f*SQUARE_SIDE, Pos.y ), new Vector2(1.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(HorDoor, new Vector3(Pos.x + 2.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
                     case 3:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 2.0f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y + 2.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
 
                     default:
@@ -542,8 +571,10 @@ public class GeneratorEntity : MonoBehaviour
 
 
 
-    public void PutNormalRoom(Vector3 Pos, Vertex v, bool enemy = true)
+    public void PutNormalRoom(Vector3 Pos, Vertex v, bool enemy = true, bool special = false, bool cross = false)
     {
+        if(special) enemy = false;
+
         int makeupcorridors = biggestroomhalfsize - 3;
 
         string s = "";
@@ -563,7 +594,23 @@ public class GeneratorEntity : MonoBehaviour
 
         int index = System.Convert.ToInt32(s,2);
 
-        var roomobject = Instantiate(NormalRooms[index - 1], Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+        GameObject roomobject = null;
+
+        if(special)
+        {
+            if(cross)
+            {
+                roomobject = Instantiate(CrossSpecialRooms[Random.Range(0,CrossSpecialRooms.Length)], Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+            }
+            else
+            {  
+                roomobject = Instantiate(VertSpecialRooms[Random.Range(0,VertSpecialRooms.Length)], Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+            }
+        }
+        else
+        {
+            roomobject = Instantiate(NormalRooms[index - 1], Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+        }
 
         RoomAction ra = null;
 
@@ -615,19 +662,23 @@ public class GeneratorEntity : MonoBehaviour
                     case 0:
                         ///Ezek az ajtók, tudom a szobák rácsméretét, ajtókat annyival arrébb toljuk
                         ra.node.neighbours[ v.GetNeighbour(i).jnode ] = new doorData( new Vector2(Pos.x - 3.0f*SQUARE_SIDE, Pos.y), new Vector2(-1.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(HorDoor, new Vector3(Pos.x - 3.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
 
                     break;
                     case 1:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 3.0f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y - 3.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
                     case 2:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x + 3.0f*SQUARE_SIDE, Pos.y ), new Vector2(1.0f, 0.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(HorDoor, new Vector3(Pos.x + 3.0f*SQUARE_SIDE, Pos.y + 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
                     case 3:
 
                         ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 3.0f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
+                        if(Random.Range(0, 10) < 2) Instantiate(VerDoor, new Vector3(Pos.x, Pos.y + 3.0f*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
                     break;
 
                     default:

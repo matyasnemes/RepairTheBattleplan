@@ -59,4 +59,5 @@ public class GameplayOptions
     public Sprite lightSprite;
     public Sprite extinguishSprite;
     public Sprite skullSprite;
+    public Sprite unlockedDoorSprite;
 }

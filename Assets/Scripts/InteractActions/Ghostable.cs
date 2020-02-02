@@ -37,8 +37,6 @@ public class Ghostable : MonoBehaviour
         // Updating opacity effect
         SpriteRenderer renderer = GetComponentInParent<SpriteRenderer>();
         float alpha = 1.1f - (remainingGhostDuration / GameplayController.getGameplayOptions().ghostEffectDuration);
-        renderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-        Debug.Log(alpha);
-                                   
+        renderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);                                   
     }
 }
