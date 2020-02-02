@@ -27,5 +27,9 @@ public class PlayButtonController : MonoBehaviour,
         menuBar.SetActive(false);
         teamBar.SetActive(true);
         actionBar.SetActive(true);
+
+        // Activate player
+        GameplayController.getPlayer().GetComponent<SpriteRenderer>().enabled = true;
+        GameplayController.getPlayer().GetComponent<PlayerControllable>().enabled = true;
     }
 }
