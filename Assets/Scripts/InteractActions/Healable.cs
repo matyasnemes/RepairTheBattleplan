@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 
-public class Healable : MonoBehaviour,
-                        IPointerClickHandler
+public class Healable : MonoBehaviour
 {
+    public GameObject healEffect;
+
     // Click handler for action
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnMouseDown()
     {
         int manaCost = GameplayController.getGameplayOptions().healManaCost;
         int healValue = GameplayController.getGameplayOptions().healValue;
@@ -20,9 +21,15 @@ public class Healable : MonoBehaviour,
             // Checking available mana and health condition
             if (player.getMana() < manaCost) return;
 
+            // Starting animation
+            player.doCastAnimation();
+
             // Increasing actor health
-            GameActor actor = GetComponent<GameActor>();
-            actor.setHealth(actor.getHealth() + healValue);
+            GameActor actor = GetComponentInParent<GameActor>();
+            if(actor.getHealth() >= 1.0f) actor.setHealth(actor.getHealth() + healValue);
+
+            // Instantiating effect
+            Instantiate(healEffect, actor.transform);
         }
 
         // Spending mana from player mana pool

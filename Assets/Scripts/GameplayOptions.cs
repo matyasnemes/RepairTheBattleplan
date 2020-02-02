@@ -11,6 +11,14 @@ public class GameplayOptions
     public float regenerationPeriod;
     public float ghostEffectDuration;
     public float levitateStepPeriod;
+    public float playerCastPeriod;
+    public float playerMovePeriod;
+
+    // Movement
+    [Header("Movement")]
+    public float playerSpeed = 0.5f;
+    public float knightSpeed = 0.4f;
+    public float goblinSpeed = 0.4f;
 
     // Maximum health values
     [Header("Maximum health values")]
@@ -20,6 +28,7 @@ public class GameplayOptions
     public int knight3MaxHealth = 100;
     public int knight4MaxHealth = 100;
     public int knight5MaxHealth = 100;
+    public int goblinMaxHealth = 100;
 
     // Maximum mana value
     [Header("Maximum mana value")]
@@ -49,6 +58,7 @@ public class GameplayOptions
     public Sprite levitateSprite;
     public Sprite lightSprite;
     public Sprite extinguishSprite;
+    public Sprite skullSprite;
 
     // Frame sprites
     [Header("NOT USED Frame sprites")]
