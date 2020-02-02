@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2083127488292843661}
   - component: {fileID: 2083127488292843660}
-  - component: {fileID: 2083127488292843663}
+  - component: {fileID: 6933242185214541611}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Untagged
@@ -141,7 +141,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2083127488292843663
+--- !u!114 &6933242185214541611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

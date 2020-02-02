@@ -23,7 +23,8 @@ public class Node
 
     public bool wasEnemy = false;
 
-    public List<Enemy> enemies;
+    public int enemyCount = 0;
+    private List<Enemy> enemies;
     private List<Enemy> idleEnemies;
 
     public void setEnemies(List<Enemy> enem)
@@ -31,14 +32,16 @@ public class Node
         enemies = enem;
         idleEnemies = enem;
         wasEnemy = true;
+        enemyCount = enemies.Count;
+        Debug.Log("Enemy count: "+enemies.Count);
     }
     public void fight(Fighter f)
     {
-        int i = rnd.Next(0, idleEnemies.Count);
-        var e = idleEnemies[i];
-        idleEnemies.RemoveAt(i);
+        int i = rnd.Next(0, enemies.Count);
+        var e = enemies[i];
+        //idleEnemies.RemoveAt(i);
         f.fight(e.transform.position + new Vector3(0.32f, 0.0f));
-        e.fight(f.transform.position- new Vector3(0.32f, 0.0f));
+        e.fight(f.transform.position - new Vector3(0.32f, 0.0f));
     }
 
     private Node randomChoose(List<Node> keyList)

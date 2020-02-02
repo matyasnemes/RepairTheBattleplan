@@ -14,6 +14,7 @@ public class Fighter : MonoBehaviour
     public Vector2 doorDirection;
     BoxCollider2D m_collider;
 
+    private bool inFight = false;
 
 
     System.Random rnd;
@@ -43,7 +44,7 @@ public class Fighter : MonoBehaviour
             }
         }
 
-        else
+        else if(!inFight)
         {
             transform.position += forward * step;
         }
@@ -53,6 +54,7 @@ public class Fighter : MonoBehaviour
     public void fight(Vector2 where)
     {
         target = where;
+        inFight = true;
         //FIGHT ANIM HIVAS IDE
     }
     public void turn()
