@@ -10,7 +10,7 @@ public class Extinguishable : MonoBehaviour
 
     public void Start()
     {
-        if (!GetComponent<Collider>()) Debug.Log("DAMN");
+        if (!GetComponent<Collider2D>()) Debug.Log("DAMN");
     }
 
     // Click handler for action
@@ -26,8 +26,12 @@ public class Extinguishable : MonoBehaviour
             if (player.getMana() < manaCost || extinguished || player.getHealth() < 0.1f) return;
 
             // Disabling collider
-            Collider attachedCollider = GetComponent<Collider>();
-            if(attachedCollider) attachedCollider.enabled = false;
+            Collider2D attachedCollider = GetComponent<Collider2D>();
+            if (attachedCollider)
+            {
+                attachedCollider.enabled = false;
+                Debug.Log("YAK");
+            }
             extinguished = true;
 
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
