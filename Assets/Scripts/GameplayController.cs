@@ -77,8 +77,7 @@ public class GameplayController : MonoBehaviour
 
     public static void registerKnight(GameObject knight, int id)
     {
-        Debug.Log("FUCK");
-
+        // Setting max health
         switch(id)
         {
             case 1: knight.GetComponent<GameActor>().setMaxHealth(instance.options.knight1MaxHealth); break;
@@ -88,6 +87,7 @@ public class GameplayController : MonoBehaviour
             case 5: knight.GetComponent<GameActor>().setMaxHealth(instance.options.knight5MaxHealth); break;
         }
 
+        // Setting initial health
         switch (id)
         {
             case 1: knight.GetComponent<GameActor>().setHealth(instance.options.knight1MaxHealth); break;
@@ -97,6 +97,7 @@ public class GameplayController : MonoBehaviour
             case 5: knight.GetComponent<GameActor>().setHealth(instance.options.knight5MaxHealth); break;
         }
 
+        // Setting knight instance
         switch (id)
         {
             case 1: instance.knight1 = knight.GetComponent<GameActor>(); break;
@@ -154,11 +155,5 @@ public class GameplayController : MonoBehaviour
 
         // Initializing current action to HEAL
         currentAction = PlayerAction.HEAL_ACTION;
-    }
-
-    // Updating gameplayer controller
-    void Update()
-    {
-
     }
 }
