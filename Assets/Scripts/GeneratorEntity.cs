@@ -62,23 +62,23 @@ public class GeneratorEntity : MonoBehaviour
 
         knights.Add(Instantiate(knight, new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
         
-        GameplayController.registerKnight(knights[knights.Count - 1], 1);
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 1);
 
         knights.Add(Instantiate(knight, new Vector3(0.0f, -0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
 
-        GameplayController.registerKnight(knights[knights.Count - 1], 2);
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 2);
 
         knights.Add(Instantiate(knight, new Vector3(0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
         
-        GameplayController.registerKnight(knights[knights.Count - 1], 3);
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 3);
 
         knights.Add(Instantiate(knight, new Vector3(-0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
         
-        GameplayController.registerKnight(knights[knights.Count - 1], 4);
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 4);
 
         knights.Add(Instantiate(knight, new Vector3(0.16f, 0.0f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
         
-        GameplayController.registerKnight(knights[knights.Count - 1], 5);
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 5);
 
         int i = 0;
         Fighter f = null;
