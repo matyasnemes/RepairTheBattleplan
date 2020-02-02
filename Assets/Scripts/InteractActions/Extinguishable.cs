@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Extinguishable : MonoBehaviour,
-                              IPointerClickHandler
+public class Extinguishable : MonoBehaviour                        
 {
     // Extinguished status
     public bool extinguished = false;
 
+    public void Start()
+    {
+        if (!GetComponent<Collider>()) Debug.Log("DAMN");
+    }
+
     // Click handler for action
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnMouseDown()
     {
         int manaCost = GameplayController.getGameplayOptions().extinguishManaCost;
         GameActor player = GameplayController.getPlayer();
@@ -19,7 +23,7 @@ public class Extinguishable : MonoBehaviour,
         if (GameplayController.getCurrentAction() == GameplayController.PlayerAction.EXTINGUISH_ACTION)
         {
             // Checking available mana and extinguish status
-            if (player.getMana() < manaCost || extinguished) return;
+            if (player.getMana() < manaCost || extinguished || player.getHealth() < 0.1f) return;
 
             // Disabling collider
             Collider attachedCollider = GetComponent<Collider>();
