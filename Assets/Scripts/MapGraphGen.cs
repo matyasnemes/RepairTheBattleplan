@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Vertex
 {
+    public int id;
+
     public Vertex neighbour0;
     public Vertex neighbour1;
     public Vertex neighbour2;
@@ -17,12 +19,13 @@ public class Vertex
     public int Y;
     public int X;
 
-    public Vertex(int y = -1, int x = -1, bool l = false)
+    public Vertex(int vid, int y = -1, int x = -1, bool l = false)
     {
         live = l;
         if(live) jnode = new Node();
         Y = y;
         X = x;
+        id = vid;
     }
 
     public void SetLive(bool l)
@@ -151,6 +154,8 @@ public class Vertex
 public class MapGenGraph
 {
 
+    public static int idnum = 0;
+
     static int ratio = 2;
 
     public List<List<Vertex>> vertices = new List<List<Vertex>>();
@@ -185,7 +190,8 @@ public class MapGenGraph
 
             for(int j = 0; j < w+1; j++)
             {
-                vertices[i].Add(new Vertex(i, j));
+                vertices[i].Add(new Vertex(idnum, i, j));
+                idnum++;
             }
         }
 
