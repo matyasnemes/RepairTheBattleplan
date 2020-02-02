@@ -9,6 +9,8 @@ public class Unlockable : MonoBehaviour,
     // Unlocked status
     public bool unlocked = false;
 
+    public Sprite unlockedsprite;
+
     // Click handler for action
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -28,6 +30,8 @@ public class Unlockable : MonoBehaviour,
 
             // Spending mana from player mana pool
             player.setMana(player.getMana() - manaCost);
+
+            GetComponent<SpriteRenderer>().sprite = unlockedsprite;
         }
     }
 }
