@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 6610546641864975550}
   - component: {fileID: 5738457595256845139}
   m_Layer: 0
-  m_Name: Long_0101_twoway 1
+  m_Name: Long_0101_twoway boyfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006418826260641690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.76137286, y: 0.07047103, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1238940695449070076}
