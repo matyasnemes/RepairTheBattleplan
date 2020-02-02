@@ -47,6 +47,7 @@ public class GeneratorEntity : MonoBehaviour
             k.GetComponent<SpriteRenderer>().sprite = sprites[i];
             f = k.GetComponent<Fighter>();
             f.currentNode = g.Start.jnode;
+            FighterController.fighters.Add(f);
             i++;
         }
         g.Start.jnode.fighterCount = 5;
