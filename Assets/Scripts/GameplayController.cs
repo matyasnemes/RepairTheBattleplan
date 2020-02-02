@@ -75,6 +75,18 @@ public class GameplayController : MonoBehaviour
         return instance.currentAction;
     }
 
+    public static void registerKnight(GameObject knight, int id)
+    {
+        switch(id)
+        {
+            case 1: instance.knight1 = knight.GetComponent<GameActor>(); break;
+            case 2: instance.knight2 = knight.GetComponent<GameActor>(); break;
+            case 3: instance.knight3 = knight.GetComponent<GameActor>(); break;
+            case 4: instance.knight4 = knight.GetComponent<GameActor>(); break;
+            case 5: instance.knight5 = knight.GetComponent<GameActor>(); break;
+        }
+    }
+
     public static GameActor getPlayer()
     {
         return instance.player;

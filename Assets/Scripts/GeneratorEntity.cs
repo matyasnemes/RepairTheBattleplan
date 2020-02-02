@@ -28,12 +28,18 @@ public class GeneratorEntity : MonoBehaviour
     public List<GameObject> CorridorObjects;
     public Sprite[] sprites;
 
+    public Sprite[] horizontalvariations;
+    public Sprite[] verticalvariations;
+
     MapGenGraph g;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
+
+
         if(GenerateAtStart)
         {
             System.Random rnd = new System.Random();
@@ -53,11 +59,26 @@ public class GeneratorEntity : MonoBehaviour
         CreateMap(g);
 
         List<GameObject> knights = new List<GameObject>();
+
         knights.Add(Instantiate(knight, new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 1);
+
         knights.Add(Instantiate(knight, new Vector3(0.0f, -0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 2);
+
         knights.Add(Instantiate(knight, new Vector3(0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 3);
+
         knights.Add(Instantiate(knight, new Vector3(-0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 4);
+
         knights.Add(Instantiate(knight, new Vector3(0.16f, 0.0f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        
+        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 5);
 
         int i = 0;
         Fighter f = null;
@@ -101,7 +122,7 @@ public class GeneratorEntity : MonoBehaviour
                 {
                     
                     Vertex n = v.GetNeighbour(i);
-                    if(!visited.Contains(n))
+                    if(!properContains(visited, n))
                     {
 
                         PutCorBtwNeighBours(v, n, i);
@@ -263,6 +284,7 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x - (2.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
                         }
 
                     break;
@@ -272,6 +294,7 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y - (2.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
                         }
                     break;
                     case 2:
@@ -279,6 +302,7 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x + (2.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
                         }
                     break;
                     case 3:
@@ -286,6 +310,7 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y + (2.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
                         }
                     break;
 
@@ -444,6 +469,7 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x - (2.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
                         }
 
                     break;
@@ -453,6 +479,7 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y - (2.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
                         }
                     break;
                     case 2:
@@ -460,6 +487,7 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(HorCor, new Vector3(Pos.x + (2.0f + j + 1)*SQUARE_SIDE, Pos.y, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length-1) ];
                         }
                     break;
                     case 3:
@@ -467,12 +495,14 @@ public class GeneratorEntity : MonoBehaviour
                         for(int j = 0; j < makeupcorridors; j++)
                         {
                             CorridorObjects.Add(Instantiate(VerCor, new Vector3(Pos.x, Pos.y + (2.0f + j + 1)*SQUARE_SIDE, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+                            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length-1) ];
                         }
                     break;
 
                     default:
                     break;
                 }
+
 
             }
         }
@@ -507,15 +537,22 @@ public class GeneratorEntity : MonoBehaviour
             posspos.Add(new Vector3(-2.0f, 1.0f, 0.0f));
             posspos.Add(new Vector3(2.0f, -1.0f, 0.0f));
 
+            
+            List<Enemy> elist = new List<Enemy>();
+
             for(int i = 0; i < enemynum; i++)
             {
                 int eind = Random.Range(0, posspos.Count-1);
 
-                Instantiate(GoblinPrefab, Pos + posspos[eind]*SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+
+                elist.Add(Instantiate(GoblinPrefab, Pos + posspos[eind]*SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)).GetComponent<Enemy>());
+
 
                 posspos.RemoveAt(eind);
 
             }
+
+            v.jnode.setEnemies(elist);
         }
 
 
@@ -620,12 +657,15 @@ public class GeneratorEntity : MonoBehaviour
         if(hor)
         {
             var cor = Instantiate(HorCor, Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+            
             CorridorObjects.Add(cor);
+            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = horizontalvariations[ Random.Range(0, horizontalvariations.Length) ];
         }
         else
         {
             var cor = Instantiate(VerCor, Pos, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
             CorridorObjects.Add(cor);
+            CorridorObjects[CorridorObjects.Count - 1].GetComponent<SpriteRenderer>().sprite = verticalvariations[ Random.Range(0, verticalvariations.Length) ];
         }
     }
 
@@ -633,5 +673,18 @@ public class GeneratorEntity : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool properContains(List<Vertex> vertices, Vertex v)
+    {
+        for(int i = 0; i < vertices.Count; i++)
+        {
+            if(vertices[i].id == v.id)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

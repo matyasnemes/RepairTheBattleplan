@@ -19,6 +19,12 @@ public class GUIManager : MonoBehaviour
     public Slider knight4HealthBar;
     public Slider knight5HealthBar;
     public Image  currentActionImage;
+    public Image  playerImage;
+    public Image  knight1Image;
+    public Image  knight2Image;
+    public Image  knight3Image;
+    public Image  knight4Image;
+    public Image  knight5Image;
 
     public void Initialize()
     {
@@ -70,6 +76,38 @@ public class GUIManager : MonoBehaviour
             case GameplayController.PlayerAction.LEVITATE_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().levitateSprite; break;
             case GameplayController.PlayerAction.LIGHT_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().lightSprite; break;
             case GameplayController.PlayerAction.EXTINGUISH_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().extinguishSprite; break;
+        }
+
+        // Updating actor icons
+        if(GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
+           GameplayController.getPlayer().getHealth() < 0.1)
+        {
+            playerImage.sprite = GameplayController.getGameplayOptions().skullSprite;
+        }
+        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
+            GameplayController.getKnight(1).getHealth() < 0.1)
+        {
+            knight1Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+        }
+        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
+            GameplayController.getKnight(2).getHealth() < 0.1)
+        {
+            knight2Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+        }
+        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
+            GameplayController.getKnight(3).getHealth() < 0.1)
+        {
+            knight3Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+        }
+        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
+            GameplayController.getKnight(4).getHealth() < 0.1)
+        {
+            knight4Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+        }
+        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
+            GameplayController.getKnight(5).getHealth() < 0.1)
+        {
+            knight5Image.sprite = GameplayController.getGameplayOptions().skullSprite;
         }
     }
 }
