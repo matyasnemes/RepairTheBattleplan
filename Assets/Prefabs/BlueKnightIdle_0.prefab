@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5190178742552140771}
   - component: {fileID: 7621018826110428445}
   - component: {fileID: 7364820159409388320}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: BlueKnightIdle_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  forward: {x: 0, y: 0, z: 0}
 --- !u!61 &7621018826110428445
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -112,7 +111,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03561926, y: -0.18664497}
+  m_Offset: {x: 0.01307857, y: -0.18917286}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -123,7 +122,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.26671028, y: 0.14702928}
+  m_Size: {x: 0.13587737, y: 0.11639476}
   m_EdgeRadius: 0
 --- !u!50 &7364820159409388320
 Rigidbody2D:

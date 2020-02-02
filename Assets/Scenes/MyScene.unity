@@ -166,8 +166,17 @@ MonoBehaviour:
   - {fileID: 4433894577409341390, guid: 6687d3e1a51f550418e7c3bbaed3860a, type: 3}
   - {fileID: 4916296062987309583, guid: 12cb39e5a0c38f145b1590113c3eae6d, type: 3}
   - {fileID: 2044878667034166161, guid: 02c231998f276754aa2938b1d24365dd, type: 3}
-  HorCor: {fileID: 0}
-  VerCor: {fileID: 0}
+  HorCor: {fileID: 7609893399922582992, guid: f68f9a9dfe50dcd44911029aeab2efbd, type: 3}
+  VerCor: {fileID: 1754096393266198677, guid: 15cbee278dd4713469a9ae0d7c13b30f, type: 3}
+  knight: {fileID: 2543047704927736341, guid: acf411105ac77b548a1b273eb57d63f1, type: 3}
+  RoomObjects: []
+  CorridorObjects: []
+  sprites:
+  - {fileID: -2870364911016419561, guid: 4990154302c44cd4bb2586f201d20c8d, type: 3}
+  - {fileID: -3688838021376953477, guid: f4577234431cc6c41b2eb1cd03f8e91e, type: 3}
+  - {fileID: 779698095904032690, guid: 13e2f37cb5d982c44b136fe33546eb42, type: 3}
+  - {fileID: -7223271526736054109, guid: 8ca96a6c84fa3124aaf518be3c540d1a, type: 3}
+  - {fileID: -6737356078807483797, guid: 19b66619bf44f2a48971350b283f5bf8, type: 3}
 --- !u!4 &467108340
 Transform:
   m_ObjectHideFlags: 0

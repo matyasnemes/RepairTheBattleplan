@@ -6,13 +6,16 @@ using UnityEngine;
 public class Fighter : MonoBehaviour
 {
     public float speed;
+
+
+    static public List<Node> route = new List<Node>();
+    static public Node currentNode;
+    static public Vector2? target;
     public Vector3 forward;
-    public List<Node> route = new List<Node>();
-    public Node currentNode;
-    public Node targetNode;
+
+    private static Vector2 doorDirection;
     BoxCollider2D m_collider;
 
-    private Vector2? target;
 
 
     System.Random rnd;
@@ -34,9 +37,12 @@ public class Fighter : MonoBehaviour
 
         if (target != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target, step);
-            if (Vector2.Distance((Vector2)target, transform.position) < 0.1)
+            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target+new Vector2(0.0f, 0.16f), step);
+            if (Vector2.Distance((Vector2)target + new Vector2(0.0f, 0.16f), transform.position) < 0.1)
+            {
                 target = null;
+                forward = doorDirection;
+            }
         }
 
         else
@@ -46,35 +52,20 @@ public class Fighter : MonoBehaviour
 
     }
 
-    public void goOut()
+    public static void goOut()
     {
         if (route.Any())
         {
             var doorData = currentNode.findDoor(route[0]);
             target = doorData.position;
-            forward = doorData.direction;
+            doorDirection = doorData.direction;
             route.RemoveAt(0);
         }
         else
         {
-            var doorData = currentNode.chooseDoor(this, false);
+            var doorData = currentNode.chooseDoor();
             target = doorData.position;
-            forward = doorData.direction;
-        }
-    }
-
-    public void doorClosed()
-    {
-        if (currentNode == null)
-        {
-            //folyoson vagyunk, vissza kell vergodni a szobaig
-        }
-        else
-        {
-            //szobaban vagyubnk uj utkereses
-            var doorData  = currentNode.chooseDoor(this, true);
-            target = doorData.position;
-            forward = doorData.direction;
+            doorDirection = doorData.direction;
         }
     }
 
@@ -90,16 +81,8 @@ public class Fighter : MonoBehaviour
 
         var castDirection = Quaternion.Euler(0, 0, 90 * direction) * forward;
 
-        // Bit shift the index of the layer (8) to get a bit mask
-        int layerMask = 1 << 8;
-
-        // This would cast rays only against colliders in layer 8.
-        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
-        layerMask = ~layerMask;
-
-        layerMask = 1 << 0;
         RaycastHit2D[] results = new RaycastHit2D[4];
-        int numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f, layerMask);
+        int numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
         if (numberOfCollisions == 0)
         {
             forward = castDirection;
@@ -107,7 +90,7 @@ public class Fighter : MonoBehaviour
         else
         {
             castDirection *= -1;
-            numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f, layerMask);
+            numberOfCollisions = m_collider.Raycast(castDirection, results, 0.5f);
             if (numberOfCollisions == 0)
             {
                 forward = castDirection;
