@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 1470465902967189025}
   - component: {fileID: 1470465902967189024}
   m_Layer: 0
-  m_Name: Normal_1111_cross 1
+  m_Name: Normal_1111_cross fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1470465903667268913}
   - component: {fileID: 7941226846721212964}
   - component: {fileID: 5201666982372850784}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Room
   m_TagString: Room
   m_Icon: {fileID: 0}
@@ -302,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51426a64900bb1499c03541f36edc40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  livingFighterCount: 2
 --- !u!61 &5201666982372850784
 BoxCollider2D:
   m_ObjectHideFlags: 0

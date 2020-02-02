@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 3986721402328754234}
   - component: {fileID: 6740665160401039079}
   - component: {fileID: 6455456164781488538}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Room
   m_TagString: Room
   m_Icon: {fileID: 0}
@@ -604,7 +604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51426a64900bb1499c03541f36edc40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  livingFighterCount: 2
 --- !u!1 &8582681039551429121
 GameObject:
   m_ObjectHideFlags: 0

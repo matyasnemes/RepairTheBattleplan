@@ -23,7 +23,7 @@ public class Unlockable : MonoBehaviour
             if (player.getMana() < manaCost || unlocked || player.getHealth() < 0.1f) return;
 
             // Disabling collider
-            Collider attachedCollider = GetComponent<Collider>();
+            Collider2D attachedCollider = GetComponent<Collider2D>();
             if (attachedCollider) attachedCollider.enabled = false;
             unlocked = true;
 

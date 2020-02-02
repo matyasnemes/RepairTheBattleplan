@@ -556,8 +556,10 @@ public class GeneratorEntity : MonoBehaviour
             {
                 int eind = Random.Range(0, posspos.Count-1);
 
-
-                elist.Add(Instantiate(GoblinPrefab, Pos + posspos[eind]*SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)).GetComponent<enemy>());
+                GameObject newGoblin = Instantiate(GoblinPrefab, Pos + posspos[eind] * SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                newGoblin.GetComponent<GameActor>().setMaxHealth(GameplayController.getGameplayOptions().goblinMaxHealth);
+                newGoblin.GetComponent<GameActor>().setHealth(GameplayController.getGameplayOptions().goblinMaxHealth);
+                elist.Add(newGoblin.GetComponent<enemy>()); ;
 
 
                 posspos.RemoveAt(eind);
@@ -781,8 +783,10 @@ public class GeneratorEntity : MonoBehaviour
             {
                 int eind = Random.Range(0, posspos.Count-1);
 
-
-                elist.Add(Instantiate(GoblinPrefab, Pos + posspos[eind]*SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)).GetComponent<enemy>());
+                GameObject newGoblin = Instantiate(GoblinPrefab, Pos + posspos[eind] * SQUARE_SIDE + new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                newGoblin.GetComponent<GameActor>().setMaxHealth(GameplayController.getGameplayOptions().goblinMaxHealth);
+                newGoblin.GetComponent<GameActor>().setHealth(GameplayController.getGameplayOptions().goblinMaxHealth);
+                elist.Add(newGoblin.GetComponent<enemy>());
 
 
                 posspos.RemoveAt(eind);

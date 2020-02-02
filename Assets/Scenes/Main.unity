@@ -784,6 +784,12 @@ MonoBehaviour:
   - {fileID: 5470792685419561099, guid: 0787b36a8d9fef54ba38599489aeff8b, type: 3}
   - {fileID: 1006418826260641690, guid: 4024ea2af43e4394d846b1212050788b, type: 3}
   - {fileID: 4548148421758664710, guid: 72f335e012ad91f4a9e7ba7aecc812b3, type: 3}
+  VertSpecialRooms:
+  - {fileID: 7703735597752849573, guid: e17d14b729d3d9847a4922b79beb4eab, type: 3}
+  CrossSpecialRooms:
+  - {fileID: 1470465902967189027, guid: 59fb4afc3f9020c478f3190069f6c88d, type: 3}
+  VerDoor: {fileID: 4220280876459516635, guid: 7100caebfe6aa6e44a94f33d2665a37d, type: 3}
+  HorDoor: {fileID: 2965592535091965211, guid: c28b1205314c07c45838b6dcdff9e354, type: 3}
   HorCor: {fileID: 7609893399922582992, guid: f68f9a9dfe50dcd44911029aeab2efbd, type: 3}
   VerCor: {fileID: 1754096393266198677, guid: 15cbee278dd4713469a9ae0d7c13b30f, type: 3}
   knight: {fileID: 2543047704927736341, guid: acf411105ac77b548a1b273eb57d63f1, type: 3}

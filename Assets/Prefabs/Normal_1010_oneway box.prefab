@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 7703735597580466103}
   - component: {fileID: 1204125733004572834}
   - component: {fileID: 3940938609268344550}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Room
   m_TagString: Room
   m_Icon: {fileID: 0}
@@ -324,7 +324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51426a64900bb1499c03541f36edc40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  livingFighterCount: 2
 --- !u!61 &3940938609268344550
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -362,7 +361,7 @@ GameObject:
   - component: {fileID: 7703735597752849575}
   - component: {fileID: 7703735597752849574}
   m_Layer: 0
-  m_Name: Normal_1010_oneway 1
+  m_Name: Normal_1010_oneway box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
