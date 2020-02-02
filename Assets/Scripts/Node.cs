@@ -7,7 +7,7 @@ public struct doorData
     public Vector2 position;
     public Vector2 direction;
 
-    public doorData(Vector2 pos, Vector3 dir)
+    public doorData(Vector2 pos, Vector2 dir)
     {
         position = pos;
         direction = dir;
@@ -15,44 +15,44 @@ public struct doorData
 }
 
 public class Node
-{ 
+{
     private System.Random rnd = new System.Random();
     public bool visited = false;
     public Dictionary<Node, doorData> neighbours = new Dictionary<Node, doorData>();
+    public int fighterCount = 0;
+    public int enemyCount = 0;
+    public bool wasEnemy = false;
 
-    private Node randomChoose(List<Node> keyList, bool routeFailed, Fighter fighter)
+    private Node randomChoose(List<Node> keyList)
     {
         if (keyList.Count == 0)
             return null;
 
         int r = rnd.Next(0, keyList.Count);
         Node key = keyList[r];
-        if (!(routeFailed && key == fighter.targetNode))
+        if (!key.visited)
         {
-            if (!key.visited)
-            {
-                return key;
-            }
+            return key;
         }
+
         keyList.RemoveAt(r);
 
-        randomChoose(keyList, routeFailed, fighter);
+        randomChoose(keyList);
         return null;
     }
 
-    public doorData chooseDoor(Fighter fighter, bool routeFailed)
+    public doorData chooseDoor()
     {
         List<Node> keyList = new List<Node>(neighbours.Keys);
 
-        Node key = randomChoose(keyList, routeFailed, fighter);
+        Node key = randomChoose(keyList);
         if (key != null)
             return neighbours[key];
 
-        var route = findPathToNew(this, fighter, routeFailed);
+        var route = findPathToNew(this);
         var nextNode = route[0];
-        fighter.targetNode = nextNode;
         route.RemoveAt(0);
-        fighter.route = route;
+        Fighter.route = route;
         return neighbours[nextNode];
     }
 
@@ -61,7 +61,7 @@ public class Node
         return neighbours[toRoom];
     }
 
-    public static List<Node> findPathToNew(Node from, Fighter fighter, bool routeFailed)
+    public static List<Node> findPathToNew(Node from)
     {
         List<Node> traverseOrder = new List<Node>();
         Queue<Node> toBeProcessed = new Queue<Node>();

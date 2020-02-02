@@ -11,13 +11,16 @@ public class GeneratorEntity : MonoBehaviour
     int corridorsize = 1;
 
     public GameObject[] SmallRooms;
+    public GameObject[] NormalRooms;
     public GameObject HorCor;
     public GameObject VerCor;
     public GameObject knight;
+    public GameObject StartTile;
+    public GameObject FinishTile;
 
     public List<GameObject> RoomObjects;
     public List<GameObject> CorridorObjects;
-
+    public Sprite[] sprites;
 
     MapGenGraph g;
 
@@ -30,7 +33,25 @@ public class GeneratorEntity : MonoBehaviour
 
         CreateMap(g);
 
-        Instantiate(knight, new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+        List<GameObject> knights = new List<GameObject>();
+        knights.Add(Instantiate(knight, new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        knights.Add(Instantiate(knight, new Vector3(0.0f, -0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        knights.Add(Instantiate(knight, new Vector3(0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        knights.Add(Instantiate(knight, new Vector3(-0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        knights.Add(Instantiate(knight, new Vector3(0.16f, 0.0f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+
+        int i = 0;
+        Fighter f = null;
+        foreach(var k in knights)
+        {
+            k.GetComponent<SpriteRenderer>().sprite = sprites[i];
+            f = k.GetComponent<Fighter>();
+            f.currentNode = g.Start.jnode;
+            i++;
+        }
+        g.Start.jnode.fighterCount = 5;
+        
+        FighterController.goOut();
 
         g.Print();
 
@@ -146,7 +167,7 @@ public class GeneratorEntity : MonoBehaviour
                     break;
                     case 1:
 
-                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 2.0f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y - 2.0f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
                     break;
                     case 2:
 
@@ -154,7 +175,7 @@ public class GeneratorEntity : MonoBehaviour
                     break;
                     case 3:
 
-                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 2.0f*SQUARE_SIDE), new Vector2(0.0f, -1.0f));
+                        ra.node.neighbours[v.GetNeighbour(i).jnode] = new doorData(new Vector2(Pos.x, Pos.y + 2.0f*SQUARE_SIDE), new Vector2(0.0f, 1.0f));
                     break;
 
                     default:
