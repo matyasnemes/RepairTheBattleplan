@@ -23,6 +23,10 @@ public class GeneratorEntity : MonoBehaviour
     public GameObject StartTile;
     public GameObject FinishTile;
     public GameObject GoblinPrefab;
+    public GameObject c1100;
+    public GameObject c0110;
+    public GameObject c0011;
+    public GameObject c1001;
 
     public RuntimeAnimatorController knight1Animator;
     public RuntimeAnimatorController knight2Animator;
