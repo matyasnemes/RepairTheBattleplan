@@ -7,7 +7,7 @@ public class RoomAction : MonoBehaviour
     public Node node;
     BoxCollider2D m_collider;
     private bool wentOut = false;
-    public int livingFighterCount = 2;
+    private bool fightersHere = false;
 
     // Use this for initialization
     void Start () {
@@ -17,7 +17,7 @@ public class RoomAction : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        if (node.wasEnemy && node.enemyCount==0 && !wentOut)
+        if (fightersHere && node.wasEnemy && node.enemyCount==0 && !wentOut)
         {
             FighterController.goOut();
             wentOut = true;
@@ -30,20 +30,19 @@ public class RoomAction : MonoBehaviour
         if (fighter!=null)
         {
             wentOut = false;
+            fightersHere = true;
             node.fighterCount++;
             fighter.currentNode = node;
-            if (node.enemyCount == 0 && node.fighterCount == livingFighterCount)
+            if (node.enemyCount == 0 && node.fighterCount == FighterController.fighters.Count)
             {
                 fighter.currentNode.visited = true;
                 FighterController.goOut();
                 wentOut = true;
             }
-            else
+            else if(node.enemyCount!=0)
             {
                 node.fight(fighter);
             }
-            
-
         }
     }
 
@@ -53,7 +52,9 @@ public class RoomAction : MonoBehaviour
         node.fighterCount--;
         if (fighter != null && node.fighterCount==0)
         {
-            fighter.currentNode = null;
+            foreach(var f in FighterController.fighters)
+                f.currentNode = null;
+            fightersHere = false;
         }
 
     }

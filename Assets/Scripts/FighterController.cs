@@ -42,4 +42,9 @@ public class FighterController : MonoBehaviour
             }
         }
     }
+
+    public void killed(Fighter f)
+    {
+        fighters.Remove(f);
+    }
 }

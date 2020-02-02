@@ -200,6 +200,10 @@ MonoBehaviour:
   - {fileID: 779698095904032690, guid: 13e2f37cb5d982c44b136fe33546eb42, type: 3}
   - {fileID: -7223271526736054109, guid: 8ca96a6c84fa3124aaf518be3c540d1a, type: 3}
   - {fileID: -6737356078807483797, guid: 19b66619bf44f2a48971350b283f5bf8, type: 3}
+  horizontalvariations:
+  - {fileID: 21300000, guid: 9017411b570045d4ba481bb6aab29973, type: 3}
+  verticalvariations:
+  - {fileID: 21300000, guid: 30392a02da26ce64e8ce03a98d7e8053, type: 3}
 --- !u!4 &467108340
 Transform:
   m_ObjectHideFlags: 0
