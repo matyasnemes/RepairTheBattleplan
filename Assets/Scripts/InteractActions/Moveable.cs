@@ -17,7 +17,6 @@ public class Moveable : MonoBehaviour,
     public int moveCounter = 0;
     public int moveRemaining = 0;
     private double moveTimer = 0.0f;
-    public double moveTimerPeriod = 0.05f;
 
     // Click handler for action
     public void OnPointerClick(PointerEventData eventData)
@@ -32,7 +31,7 @@ public class Moveable : MonoBehaviour,
             if (player.getMana() < manaCost || moving) return;
 
             // Initiating move
-            moveRemaining = 50;
+            moveRemaining = GameplayController.getGameplayOptions().levitateStepCount;
             moveCounter++;
             moving = true;
 
@@ -43,14 +42,18 @@ public class Moveable : MonoBehaviour,
 
     public void Update()
     {
+        // Reading update parameters
+        float period = GameplayController.getGameplayOptions().levitateStepPeriod;
+        int count = GameplayController.getGameplayOptions().levitateStepCount;
+
         // Moving time forwards
         moveTimer += Time.deltaTime;
 
         // Moving object
-        if (moveRemaining > 0 && moveTimer > moveTimerPeriod)
+        if (moveRemaining > 0 && moveTimer > period)
         {
             Vector3 moveVector = moveCounter % 2 == 0 ? moveOne : moveTwo;
-            this.transform.Translate(moveVector / 50);
+            this.transform.Translate(moveVector / count);
             moveRemaining--;
             moveTimer = 0.0f;
         }

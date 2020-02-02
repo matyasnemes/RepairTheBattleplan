@@ -51,6 +51,16 @@ public class GameplayController : MonoBehaviour
 
     // Static getters & setters
 
+    public static GameState getGameState()
+    {
+        return instance.currentGameState;
+    }
+
+    public static void setGameState(GameState state)
+    {
+        instance.currentGameState = state;
+    }
+
     public static GameplayOptions getGameplayOptions() {
         return instance.options;
     }
@@ -89,7 +99,6 @@ public class GameplayController : MonoBehaviour
     {
         instance = this;
         instance.Initialize();
-        instance.options = new GameplayOptions();
         instance.guiManager.Initialize();
     }
 

@@ -11,6 +11,7 @@ public class Healable : MonoBehaviour,
     public void OnPointerClick(PointerEventData eventData)
     {
         int manaCost = GameplayController.getGameplayOptions().healManaCost;
+        int healValue = GameplayController.getGameplayOptions().healValue;
         GameActor player = GameplayController.getPlayer();
 
         // Checking if action should be performed
@@ -21,7 +22,7 @@ public class Healable : MonoBehaviour,
 
             // Increasing actor health
             GameActor actor = GetComponent<GameActor>();
-            actor.setHealth(actor.getHealth() + 10);
+            actor.setHealth(actor.getHealth() + healValue);
         }
 
         // Spending mana from player mana pool
