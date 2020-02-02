@@ -42,6 +42,8 @@ public class DummyMover : MonoBehaviour {
         nodes.Add(Node4);
         nodes.Add(Node5);
 
+       // Node1.fighterCount = 0;
+
         var room1 = GameObject.Find("Room1");
         var act = room1.GetComponent<RoomAction>();
         act.node = Node1;
@@ -61,6 +63,14 @@ public class DummyMover : MonoBehaviour {
         var room5 = GameObject.Find("Room5");
         act = room5.GetComponent<RoomAction>();
         act.node = Node5;
+
+        var f = (GameObject.Find("K")).GetComponent<Fighter>();
+        var f1 = (GameObject.Find("K1")).GetComponent<Fighter>();
+        f.currentNode = Node1;
+        f.currentNode = Node1;
+        FighterController.fighters.Add(f);
+        FighterController.fighters.Add(f1);
+        FighterController.goOut();
     }
 	
 	// Update is called once per frame

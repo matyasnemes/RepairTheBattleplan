@@ -6,7 +6,8 @@ public class RoomAction : MonoBehaviour
 {
     public Node node;
     BoxCollider2D m_collider;
-    public int fighterCount;
+    private bool wentOut = false;
+    public int livingFighterCount = 2;
 
     // Use this for initialization
     void Start () {
@@ -16,20 +17,32 @@ public class RoomAction : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (node.wasEnemy && node.enemyCount==0 && !wentOut)
+        {
+            FighterController.goOut();
+            wentOut = true;
+        }
 	}
+
     void OnTriggerEnter2D(Collider2D other)
     {
         var fighter = other.GetComponent<Fighter>();
         if (fighter!=null)
         {
+            wentOut = false;
             node.fighterCount++;
             fighter.currentNode = node;
-            if (node.enemyCount == 0 && node.fighterCount == 5)
+            if (node.enemyCount == 0 && node.fighterCount == livingFighterCount)
             {
                 fighter.currentNode.visited = true;
                 FighterController.goOut();
+                wentOut = true;
             }
+            else
+            {
+                node.fight(fighter);
+            }
+            
 
         }
     }

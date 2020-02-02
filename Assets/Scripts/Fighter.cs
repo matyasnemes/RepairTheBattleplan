@@ -50,6 +50,11 @@ public class Fighter : MonoBehaviour
 
     }
 
+    public void fight(Vector2 where)
+    {
+        target = where;
+        //FIGHT ANIM HIVAS IDE
+    }
     public void turn()
     {
         if (target != null)
