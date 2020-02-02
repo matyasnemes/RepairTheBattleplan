@@ -10,6 +10,7 @@ public class Fighter : MonoBehaviour
     public Node currentNode;
     public Vector2? target;
     public Vector3 forward;
+    enemy eToFollow = null;
 
     public Vector2 doorDirection;
     BoxCollider2D m_collider;
@@ -24,7 +25,7 @@ public class Fighter : MonoBehaviour
     {
         m_collider = GetComponent<BoxCollider2D>();
         forward = new Vector3(1, 0, 0);
-        speed = 1;
+        speed = GameplayController.getGameplayOptions().knightSpeed;
         rnd = new System.Random();
     }
 
@@ -34,28 +35,53 @@ public class Fighter : MonoBehaviour
 
         float step = speed * Time.deltaTime;
 
+        if (forward.x == 1 && GetComponent<SpriteRenderer>().flipX == false)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        if (forward.x == -1 && GetComponent<SpriteRenderer>().flipX == true)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         if (target != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target+new Vector2(0.0f, 0.16f), step);
+            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target + new Vector2(0.0f, 0.16f), step);
+
+            GetComponent<GameActor>().doMoveAnimation();
             if (Vector2.Distance((Vector2)target + new Vector2(0.0f, 0.16f), transform.position) < 0.1)
             {
                 target = null;
                 forward = doorDirection;
             }
         }
-
-        else if(!inFight)
+        else if (eToFollow != null)
         {
+            transform.position = Vector2.MoveTowards(transform.position, eToFollow.transform.position + new Vector3(0.32f, 0.0f), step);
+            GetComponent<GameActor>().doMoveAnimation();
+            if ((Vector2.Distance(eToFollow.transform.position + new Vector3(0.32f, 0.0f), transform.position) < 0.1))
+            {
+                eToFollow = null;
+            }
+        }
+        else if (eToFollow == null && inFight)
+        {
+            GetComponent<GameActor>().doHitAnimation();
+        }
+        else if (!inFight)
+        {
+            GetComponent<GameActor>().doMoveAnimation();
             transform.position += forward * step;
         }
 
     }
 
-    public void fight(Vector2 where)
+    public void fight(enemy e)
     {
-        target = where;
+        eToFollow = e;
         inFight = true;
-        //FIGHT ANIM HIVAS IDE
+        GetComponent<GameActor>().doHitAnimation();
+        //currentNode.killed(e);
     }
     public void turn()
     {

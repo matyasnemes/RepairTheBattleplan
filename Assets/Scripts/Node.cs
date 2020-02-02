@@ -24,24 +24,31 @@ public class Node
     public bool wasEnemy = false;
 
     public int enemyCount = 0;
-    private List<Enemy> enemies;
-    private List<Enemy> idleEnemies;
+    private List<enemy> enemies;
 
-    public void setEnemies(List<Enemy> enem)
+    public void setEnemies(List<enemy> enem)
     {
         enemies = enem;
-        idleEnemies = enem;
         wasEnemy = true;
         enemyCount = enemies.Count;
-        Debug.Log("Enemy count: "+enemies.Count);
     }
+
+    public void killed(enemy e)
+    {
+        if (enemies.Contains(e))
+        {
+            enemies.Remove(e);
+            enemyCount--;
+        }
+    }
+
     public void fight(Fighter f)
     {
         int i = rnd.Next(0, enemies.Count);
         var e = enemies[i];
         //idleEnemies.RemoveAt(i);
-        f.fight(e.transform.position + new Vector3(0.32f, 0.0f));
-        e.fight(f.transform.position - new Vector3(0.32f, 0.0f));
+        f.fight(e);
+        e.fight(f);
     }
 
     private Node randomChoose(List<Node> keyList)

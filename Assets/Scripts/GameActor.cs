@@ -65,6 +65,7 @@ public class GameActor : MonoBehaviour
     public void doHitAnimation()
     {
         animator.SetInteger("state", 2);
+        animationTimer = 0.5f;
     }
 
     public void doCastAnimation()

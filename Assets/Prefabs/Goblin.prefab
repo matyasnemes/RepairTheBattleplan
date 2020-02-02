@@ -68,6 +68,8 @@ GameObject:
   - component: {fileID: 2083127488292843661}
   - component: {fileID: 2083127488292843660}
   - component: {fileID: 6933242185214541611}
+  - component: {fileID: 8466902454612283607}
+  - component: {fileID: 5279539987836076409}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Untagged
@@ -154,3 +156,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+--- !u!114 &8466902454612283607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083127488292843662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f7f58bcfcd8d1448dd34336d2bf604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  mana: 0
+--- !u!95 &5279539987836076409
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083127488292843662}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88aff4f226d0814a8cacbc859c5f1d6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

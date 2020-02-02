@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class enemy : MonoBehaviour
 {
-    public float speed=1;
-    public Vector2? target;
+    public float speed;
+    Fighter fToFollow=null;
+    bool inFight = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        speed = GameplayController.getGameplayOptions().goblinSpeed;
     }
 
     // Update is called once per frame
@@ -18,19 +19,23 @@ public class Enemy : MonoBehaviour
     {
         float step = speed * Time.deltaTime;
 
-        if (target != null)
+        if (fToFollow != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target + new Vector2(0.0f, 0.16f), step);
-            if (Vector2.Distance((Vector2)target + new Vector2(0.0f, 0.16f), transform.position) < 0.1)
-            {
-                target = null;
-            }
+            transform.position = Vector2.MoveTowards(transform.position, fToFollow.transform.position - new Vector3(0.32f, 0.0f), step);
+            GetComponent<GameActor>().doMoveAnimation();
+            inFight = true;
+        }
+        if (inFight)
+        {
+            GetComponent<GameActor>().doHitAnimation();
+
         }
     }
 
-    public void fight(Vector2 where)
+    public void fight(Fighter f)
     {
-        target = where;
+        fToFollow = f;
+        
         //ANIM HIVAS IDE
     }
 
