@@ -41,73 +41,85 @@ public class GUIManager : MonoBehaviour
 
         // Setting mana bar maximum value
         playerManaBar.maxValue = GameplayController.getGameplayOptions().playerMaxMana;
+
+        // Selecting focus
+        playerNameField.Select();
+        playerNameField.ActivateInputField();
     }
 
     // Updating GUI controller
     void Update()
     {
-        // Check player name availability
-        if (playerNameField.text.Length > 0)
+        // Menu updates
+        if(GameplayController.getGameState() == GameplayController.GameState.MENU_STATE)
         {
-            playButton.gameObject.SetActive(true);
+            // Check player name availability
+            if (playerNameField.text.Length > 0)
+            {
+                playButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                playButton.gameObject.SetActive(false);
+            }
         }
-        else
+       
+        // In-game updates
+        if(GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE)
         {
-            playButton.gameObject.SetActive(false);
-        }
+            // Updating healthbars
+            playerHealthBar.value = GameplayController.getPlayer().getHealth();
+            knight1HealthBar.value = GameplayController.getKnight(1).getHealth();
+            knight2HealthBar.value = GameplayController.getKnight(2).getHealth();
+            knight3HealthBar.value = GameplayController.getKnight(3).getHealth();
+            knight4HealthBar.value = GameplayController.getKnight(4).getHealth();
+            knight5HealthBar.value = GameplayController.getKnight(5).getHealth();
 
-        // Updating healthbars
-        playerHealthBar.value = GameplayController.getPlayer().getHealth();
-        knight1HealthBar.value = GameplayController.getKnight(1).getHealth();
-        knight2HealthBar.value = GameplayController.getKnight(2).getHealth();
-        knight3HealthBar.value = GameplayController.getKnight(3).getHealth();
-        knight4HealthBar.value = GameplayController.getKnight(4).getHealth();
-        knight5HealthBar.value = GameplayController.getKnight(5).getHealth();
+            // Updating manabar
+            playerManaBar.value = GameplayController.getPlayer().getMana();
 
-        // Updating manabar
-        playerManaBar.value = GameplayController.getPlayer().getMana();
+            // Updating current action sprite
+            switch (GameplayController.getCurrentAction())
+            {
+                case GameplayController.PlayerAction.GHOST_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().ghostSprite; break;
+                case GameplayController.PlayerAction.HEAL_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().healSprite; break;
+                case GameplayController.PlayerAction.UNLOCK_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().unlockSprite; break;
+                case GameplayController.PlayerAction.LEVITATE_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().levitateSprite; break;
+                case GameplayController.PlayerAction.LIGHT_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().lightSprite; break;
+                case GameplayController.PlayerAction.EXTINGUISH_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().extinguishSprite; break;
+            }
 
-        // Updating current action sprite
-        switch (GameplayController.getCurrentAction())
-        {
-            case GameplayController.PlayerAction.GHOST_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().ghostSprite; break;
-            case GameplayController.PlayerAction.HEAL_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().healSprite; break;
-            case GameplayController.PlayerAction.UNLOCK_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().unlockSprite; break;
-            case GameplayController.PlayerAction.LEVITATE_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().levitateSprite; break;
-            case GameplayController.PlayerAction.LIGHT_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().lightSprite; break;
-            case GameplayController.PlayerAction.EXTINGUISH_ACTION: currentActionImage.sprite = GameplayController.getGameplayOptions().extinguishSprite; break;
-        }
-
-        // Updating actor icons
-        if(GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
-           GameplayController.getPlayer().getHealth() < 0.1)
-        {
-            playerImage.sprite = GameplayController.getGameplayOptions().skullSprite;
-        }
-        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
-            GameplayController.getKnight(1).getHealth() < 0.1)
-        {
-            knight1Image.sprite = GameplayController.getGameplayOptions().skullSprite;
-        }
-        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
-            GameplayController.getKnight(2).getHealth() < 0.1)
-        {
-            knight2Image.sprite = GameplayController.getGameplayOptions().skullSprite;
-        }
-        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
-            GameplayController.getKnight(3).getHealth() < 0.1)
-        {
-            knight3Image.sprite = GameplayController.getGameplayOptions().skullSprite;
-        }
-        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
-            GameplayController.getKnight(4).getHealth() < 0.1)
-        {
-            knight4Image.sprite = GameplayController.getGameplayOptions().skullSprite;
-        }
-        if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE && 
-            GameplayController.getKnight(5).getHealth() < 0.1)
-        {
-            knight5Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+            // Updating actor icons
+            if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE &&
+               GameplayController.getPlayer().getHealth() < 0.1)
+            {
+                playerImage.sprite = GameplayController.getGameplayOptions().skullSprite;
+            }
+            if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE &&
+                GameplayController.getKnight(1).getHealth() < 0.1)
+            {
+                knight1Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+            }
+            if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE &&
+                GameplayController.getKnight(2).getHealth() < 0.1)
+            {
+                knight2Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+            }
+            if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE &&
+                GameplayController.getKnight(3).getHealth() < 0.1)
+            {
+                knight3Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+            }
+            if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE &&
+                GameplayController.getKnight(4).getHealth() < 0.1)
+            {
+                knight4Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+            }
+            if (GameplayController.getGameState() == GameplayController.GameState.PLAY_STATE &&
+                GameplayController.getKnight(5).getHealth() < 0.1)
+            {
+                knight5Image.sprite = GameplayController.getGameplayOptions().skullSprite;
+            }
         }
     }
 }

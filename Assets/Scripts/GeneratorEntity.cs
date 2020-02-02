@@ -28,6 +28,12 @@ public class GeneratorEntity : MonoBehaviour
     public GameObject c0011;
     public GameObject c1001;
 
+    public RuntimeAnimatorController knight1Animator;
+    public RuntimeAnimatorController knight2Animator;
+    public RuntimeAnimatorController knight3Animator;
+    public RuntimeAnimatorController knight4Animator;
+    public RuntimeAnimatorController knight5Animator;
+
     public List<GameObject> RoomObjects;
     public List<GameObject> CorridorObjects;
     public Sprite[] sprites;
@@ -65,24 +71,29 @@ public class GeneratorEntity : MonoBehaviour
         List<GameObject> knights = new List<GameObject>();
 
         knights.Add(Instantiate(knight, new Vector3(0.0f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
-        
-        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 1);
+        knights[knights.Count - 1].GetComponent<Animator>().runtimeAnimatorController = knight1Animator;
+
+        if (!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 1);
 
         knights.Add(Instantiate(knight, new Vector3(0.0f, -0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
+        knights[knights.Count - 1].GetComponent<Animator>().runtimeAnimatorController = knight2Animator;
 
-        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 2);
+        if (!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 2);
 
         knights.Add(Instantiate(knight, new Vector3(0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
-        
-        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 3);
+        knights[knights.Count - 1].GetComponent<Animator>().runtimeAnimatorController = knight3Animator;
+
+        if (!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 3);
 
         knights.Add(Instantiate(knight, new Vector3(-0.16f, 0.16f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
-        
-        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 4);
+        knights[knights.Count - 1].GetComponent<Animator>().runtimeAnimatorController = knight4Animator;
+
+        if (!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 4);
 
         knights.Add(Instantiate(knight, new Vector3(0.16f, 0.0f, 0.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)));
-        
-        if(!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 5);
+        knights[knights.Count - 1].GetComponent<Animator>().runtimeAnimatorController = knight5Animator;
+
+        if (!GenerateAtStart) GameplayController.registerKnight(knights[knights.Count - 1], 5);
 
         int i = 0;
         Fighter f = null;
