@@ -24,9 +24,9 @@ public class RoomAction : MonoBehaviour
         if (fighter!=null)
         {
             node.fighterCount++;
+            fighter.currentNode = node;
             if (node.enemyCount == 0 && node.fighterCount == 5)
             {
-                fighter.currentNode = node;
                 fighter.currentNode.visited = true;
                 FighterController.goOut();
             }
