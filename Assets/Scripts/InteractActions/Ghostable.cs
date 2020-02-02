@@ -14,7 +14,7 @@ public class Ghostable : MonoBehaviour
     }
 
     // Click handler for action
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnMouseDown()
     {
         int manaCost = GameplayController.getGameplayOptions().ghostManaCost;
         GameActor player = GameplayController.getPlayer();
@@ -38,5 +38,11 @@ public class Ghostable : MonoBehaviour
         // Decrementing remaining ghost effect duration (min. 0)
         remainingGhostDuration -= Time.deltaTime;
         remainingGhostDuration = Math.Max(0, remainingGhostDuration);
+
+        // Updating opacity effect
+        SpriteRenderer renderer = GetComponentInParent<SpriteRenderer>();
+        float alpha = 1.1f - (remainingGhostDuration / GameplayController.getGameplayOptions().ghostEffectDuration);
+        renderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+                                   
     }
 }

@@ -19,7 +19,7 @@ public class Healable : MonoBehaviour
         if (GameplayController.getCurrentAction() == GameplayController.PlayerAction.HEAL_ACTION)
         {
             // Checking available mana and health condition
-            if (player.getMana() < manaCost) return;
+            if (player.getMana() < manaCost || player.getHealth() < 0.1f) return;
 
             // Starting animation
             player.doCastAnimation();
