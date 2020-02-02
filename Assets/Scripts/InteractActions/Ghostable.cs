@@ -8,11 +8,6 @@ public class Ghostable : MonoBehaviour
 {
     public float remainingGhostDuration;
 
-    public void makeGhosted()
-    {
-        remainingGhostDuration = GameplayController.getGameplayOptions().ghostEffectDuration;
-    }
-
     // Click handler for action
     public void OnMouseDown()
     {
@@ -23,10 +18,10 @@ public class Ghostable : MonoBehaviour
         if (GameplayController.getCurrentAction() == GameplayController.PlayerAction.GHOST_ACTION)
         {
             // Checking available mana
-            if (player.getMana() < manaCost) return;
+            if (player.getMana() < manaCost || player.getHealth() < 0.1f) return;
 
             // Making target ghosted
-            makeGhosted();
+            remainingGhostDuration = GameplayController.getGameplayOptions().ghostEffectDuration;
 
             // Spending mana from player mana pool
             player.setMana(player.getMana() - manaCost);
@@ -43,6 +38,7 @@ public class Ghostable : MonoBehaviour
         SpriteRenderer renderer = GetComponentInParent<SpriteRenderer>();
         float alpha = 1.1f - (remainingGhostDuration / GameplayController.getGameplayOptions().ghostEffectDuration);
         renderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        Debug.Log(alpha);
                                    
     }
 }
