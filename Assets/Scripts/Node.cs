@@ -21,10 +21,9 @@ public class Node
     public Dictionary<Node, doorData> neighbours = new Dictionary<Node, doorData>();
     public int fighterCount = 0;
 
-    public int enemyCount = 0;
     public bool wasEnemy = false;
 
-    private List<Enemy> enemies;
+    public List<Enemy> enemies;
     private List<Enemy> idleEnemies;
 
     public void setEnemies(List<Enemy> enem)
@@ -32,7 +31,6 @@ public class Node
         enemies = enem;
         idleEnemies = enem;
         wasEnemy = true;
-        enemyCount = enem.Count;
     }
     public void fight(Fighter f)
     {
