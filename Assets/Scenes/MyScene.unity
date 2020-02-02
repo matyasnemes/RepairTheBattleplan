@@ -166,9 +166,31 @@ MonoBehaviour:
   - {fileID: 4433894577409341390, guid: 6687d3e1a51f550418e7c3bbaed3860a, type: 3}
   - {fileID: 4916296062987309583, guid: 12cb39e5a0c38f145b1590113c3eae6d, type: 3}
   - {fileID: 2044878667034166161, guid: 02c231998f276754aa2938b1d24365dd, type: 3}
+  NormalRooms:
+  - {fileID: 69277518773208761, guid: 914c2a83f1ae4d3458ec6f6c7061c0b2, type: 3}
+  - {fileID: 874805403131841629, guid: 2398b1e549ae0884ca12ef747a93b332, type: 3}
+  - {fileID: 5919108952923255173, guid: aadea60b2c0209b49816ea8c6aa3ec4a, type: 3}
+  - {fileID: 6401520884794494090, guid: 7ff0a047fbc57984eb66c9c8d6ed2187, type: 3}
+  - {fileID: 3203661729355068434, guid: dccd6d0e5608fbf4ea65c71ff9abc6b0, type: 3}
+  - {fileID: 6571431275943541224, guid: 5190f258c3090e041a4e5aeb4328e1cc, type: 3}
+  - {fileID: 1760154392494418009, guid: 0c8311f5e3869634ab22a466cd52533e, type: 3}
+  - {fileID: 1178574633671118469, guid: 93a4ed0f2faeb7f43a2ae0e3f92247c8, type: 3}
+  - {fileID: 6028389418960447338, guid: c4d8a103e9f649c4d9906f95b7d87650, type: 3}
+  - {fileID: 440793808507920090, guid: 0525fd27c09dc814892d52bac753c282, type: 3}
+  - {fileID: 8302583118798380616, guid: 1ec33400c7cd68849814a30f881924fe, type: 3}
+  - {fileID: 7113112319388732761, guid: dea04212a7efef341ae9268e5986eaf7, type: 3}
+  - {fileID: 2308506241943996293, guid: 0baf0bc9ea37c2c4a876406d3296f153, type: 3}
+  - {fileID: 6871304231039100854, guid: ac58c54dd88c7e947aa4e09f6c2a95f4, type: 3}
+  - {fileID: 2536456982585865787, guid: 9065f4fb565b1f64a874f8a3437239aa, type: 3}
   HorCor: {fileID: 7609893399922582992, guid: f68f9a9dfe50dcd44911029aeab2efbd, type: 3}
   VerCor: {fileID: 1754096393266198677, guid: 15cbee278dd4713469a9ae0d7c13b30f, type: 3}
   knight: {fileID: 2543047704927736341, guid: acf411105ac77b548a1b273eb57d63f1, type: 3}
+  StartTile: {fileID: 5439173354968750362, guid: 50eb6df06479e2249a45b2cd2ab204aa,
+    type: 3}
+  FinishTile: {fileID: 5954837900794020677, guid: c753a9277ee392340bc989e872a00fcd,
+    type: 3}
+  GoblinPrefab: {fileID: 2083127488292843662, guid: b88f0d41fecf65740adcb9b47063b122,
+    type: 3}
   RoomObjects: []
   CorridorObjects: []
   sprites:
