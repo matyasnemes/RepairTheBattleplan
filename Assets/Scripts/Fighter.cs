@@ -35,13 +35,13 @@ public class Fighter : MonoBehaviour
 
         float step = speed * Time.deltaTime;
 
-        if (forward.x == 1 && GetComponent<SpriteRenderer>().flipX == false)
+        if (forward.x == 1)
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        if (forward.x == -1 && GetComponent<SpriteRenderer>().flipX == true)
+        if (forward.x == -1)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
 
         if (target != null)
