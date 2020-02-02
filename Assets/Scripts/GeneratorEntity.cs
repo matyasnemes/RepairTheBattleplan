@@ -106,11 +106,9 @@ public class GeneratorEntity : MonoBehaviour
 
         waiting.Add(g.Start);
 
-        int iter = 0;
 
         while(waiting.Count != 0)
         {
-            iter++;
             Vertex v = waiting[0];
             visited.Add(v);
             waiting.RemoveAt(0);
@@ -126,13 +124,13 @@ public class GeneratorEntity : MonoBehaviour
 
                         PutCorBtwNeighBours(v, n, i);
 
-                        waiting.Add(n);
+                        if(!properContains(waiting, n))
+                        {
+                            waiting.Add(n);
+                        }
                     }
                 }
             }
-
-            
-            Debug.Log(iter);
 
             if(v == g.Start)
             {
