@@ -15,6 +15,8 @@ public class Healable : MonoBehaviour
         int healValue = GameplayController.getGameplayOptions().healValue;
         GameActor player = GameplayController.getPlayer();
 
+        Debug.Log("ASDF");
+
         // Checking if action should be performed
         if (GameplayController.getCurrentAction() == GameplayController.PlayerAction.HEAL_ACTION)
         {

@@ -77,7 +77,27 @@ public class GameplayController : MonoBehaviour
 
     public static void registerKnight(GameObject knight, int id)
     {
+        Debug.Log("FUCK");
+
         switch(id)
+        {
+            case 1: knight.GetComponent<GameActor>().setMaxHealth(instance.options.knight1MaxHealth); break;
+            case 2: knight.GetComponent<GameActor>().setMaxHealth(instance.options.knight2MaxHealth); break;
+            case 3: knight.GetComponent<GameActor>().setMaxHealth(instance.options.knight3MaxHealth); break;
+            case 4: knight.GetComponent<GameActor>().setMaxHealth(instance.options.knight4MaxHealth); break;
+            case 5: knight.GetComponent<GameActor>().setMaxHealth(instance.options.knight5MaxHealth); break;
+        }
+
+        switch (id)
+        {
+            case 1: knight.GetComponent<GameActor>().setHealth(instance.options.knight1MaxHealth); break;
+            case 2: knight.GetComponent<GameActor>().setHealth(instance.options.knight2MaxHealth); break;
+            case 3: knight.GetComponent<GameActor>().setHealth(instance.options.knight3MaxHealth); break;
+            case 4: knight.GetComponent<GameActor>().setHealth(instance.options.knight4MaxHealth); break;
+            case 5: knight.GetComponent<GameActor>().setHealth(instance.options.knight5MaxHealth); break;
+        }
+
+        switch (id)
         {
             case 1: instance.knight1 = knight.GetComponent<GameActor>(); break;
             case 2: instance.knight2 = knight.GetComponent<GameActor>(); break;
@@ -120,21 +140,11 @@ public class GameplayController : MonoBehaviour
         // Initializing gamestate
         currentGameState = GameState.MENU_STATE;
 
-        // Initializing actor max healths
+        // Initializing actor max healths 
         player.setMaxHealth(options.playerMaxHealth);
-        knight1.setMaxHealth(options.knight1MaxHealth);
-        knight2.setMaxHealth(options.knight2MaxHealth);
-        knight3.setMaxHealth(options.knight3MaxHealth);
-        knight4.setMaxHealth(options.knight4MaxHealth);
-        knight5.setMaxHealth(options.knight5MaxHealth);
 
         // Initializing actors to max health
         player.setHealth(options.playerMaxHealth);
-        knight1.setHealth(options.knight1MaxHealth);
-        knight2.setHealth(options.knight2MaxHealth);
-        knight3.setHealth(options.knight3MaxHealth);
-        knight4.setHealth(options.knight4MaxHealth);
-        knight5.setHealth(options.knight5MaxHealth);
 
         // Initializing player max mana
         player.setMaxMana(options.playerMaxMana);
