@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7364820159409388320}
   - component: {fileID: 5891536983211463170}
   - component: {fileID: 6608044451222140341}
+  - component: {fileID: 6866355433370166451}
   m_Layer: 2
   m_Name: KnightPrefab
   m_TagString: Untagged
@@ -175,7 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   forward: {x: 0, y: 0, z: 0}
+  eToFollow: {fileID: 0}
+  eWasFollowed: {fileID: 0}
   doorDirection: {x: 0, y: 0}
+  inFight: 0
 --- !u!61 &7621018826110428445
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -256,3 +260,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6866355433370166451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543047704927736341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30205b9a50059824ba15c075d8dea1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceAxis: {x: 0, y: 0, z: 0}
