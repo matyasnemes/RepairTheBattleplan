@@ -111,6 +111,7 @@ public class GeneratorEntity : MonoBehaviour
             i++;
         }
         g.Start.jnode.fighterCount = 5;
+        g.Start.jnode.visited = true;
         
         FighterController.goOut();
 

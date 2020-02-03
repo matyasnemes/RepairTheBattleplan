@@ -92,7 +92,18 @@ public class GameActor : MonoBehaviour
         if(health == 0)
         {
             doDeathAnimation();
-            return;
+            var enemy = GetComponent<enemy>();
+            if (enemy != null)
+            {
+                enemy.currentNode.killed(enemy);
+                if (GetComponent<BoxCollider2D>() != null)
+                {
+                    Destroy(GetComponent<BoxCollider2D>());
+                }
+            }
+
+
+                return;
         }
 
         // Decrementing animation timer

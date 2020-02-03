@@ -5,9 +5,10 @@ using UnityEngine;
 public class enemy : MonoBehaviour
 {
     public float speed;
-    Fighter fToFollow=null;
+    public Fighter fToFollow=null;
     bool inFight = false;
     private float damageTakeTimer;
+    public Node currentNode;
 
     // Start is called before the first frame update
     void Start()
@@ -49,8 +50,6 @@ public class enemy : MonoBehaviour
     public void fight(Fighter f)
     {
         fToFollow = f;
-        
-        //ANIM HIVAS IDE
     }
 
 }

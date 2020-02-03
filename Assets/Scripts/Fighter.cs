@@ -10,12 +10,13 @@ public class Fighter : MonoBehaviour
     public Node currentNode;
     public Vector2? target;
     public Vector3 forward;
-    enemy eToFollow = null;
+    public enemy eToFollow = null;
+    public enemy eWasFollowed = null;
 
     public Vector2 doorDirection;
     BoxCollider2D m_collider;
 
-    private bool inFight = false;
+    public bool inFight = false;
 
 
     System.Random rnd;
@@ -35,14 +36,14 @@ public class Fighter : MonoBehaviour
 
         float step = speed * Time.deltaTime;
 
-        if (forward.x == 1)
+        /*if (forward.x == 1)
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
         if (forward.x == -1)
         {
             GetComponent<SpriteRenderer>().flipX = true;
-        }
+        }*/
 
         if (target != null)
         {
@@ -73,15 +74,14 @@ public class Fighter : MonoBehaviour
             GetComponent<GameActor>().doMoveAnimation();
             transform.position += forward * step;
         }
-
     }
 
     public void fight(enemy e)
     {
         eToFollow = e;
+        eWasFollowed = e;
         inFight = true;
         GetComponent<GameActor>().doHitAnimation();
-        //currentNode.killed(e);
     }
     public void turn()
     {

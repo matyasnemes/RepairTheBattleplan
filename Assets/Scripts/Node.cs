@@ -33,12 +33,24 @@ public class Node
         enemies = enem;
         wasEnemy = true;
         enemyCount = enemies.Count;
+        foreach (var e in enemies)
+        {
+            e.currentNode = this;
+        }
+
     }
 
     public void killed(enemy e)
     {
         if (enemies.Contains(e))
         {
+            foreach (var f in FighterController.fighters)
+            {
+                if (f.eWasFollowed == e)
+                {
+                    f.inFight = false; 
+                }
+            }
             enemies.Remove(e);
             enemyCount--;
         }
